@@ -5,16 +5,20 @@
     <title>MoviesAPI</title>
 </head>
 <body>
-<div class="movies"></div>
+<div class="movies">MOVIES</div>
+<input class="input">
+<button class="deleteMovie">Delete Movie</button>
 
-<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <script>
     const URL = "https://capable-zenith-layer.glitch.me/movies";
     const reviewObj = {
-        // id: 1,
         title: 'Avatar',
         rating: 5,
     };
+
     const options = {
         method: 'POST',
         headers: {
@@ -23,13 +27,30 @@
         body: JSON.stringify(reviewObj),
     };
 
-        fetch(URL)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => console.log(error))
+    const deleteFunc = {
+        method: 'DELETE',
+        id: '24',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reviewObj),
+    };
 
+    fetch(URL)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            $('.movies').append(JSON.stringify(data));
+
+        })
+        .catch(error => console.log(error))
+
+//     let textInput = $('.input').val();
+//     $('.deleteMovie').click(
+// //delete movies by ID
+//         fetch(`${URL}/29`,
+//             {method: 'DELETE'})
+//     )
 </script>
 </body>
 </html>
