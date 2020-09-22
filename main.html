@@ -21,10 +21,11 @@
 
 <script>
     const URL = "https://capable-zenith-layer.glitch.me/movies";
-    let inputText = $(`#addInput`).val();
+
+    let inputText = $("#addInput").val();
 
     const reviewObj = {
-        title: inputText,
+        title: "'" + $("#addInput").val() + "'",
         rating: 5,
     };
 
@@ -59,23 +60,18 @@
         })
         .catch(error => console.log(error))
 
-    // $('.addMovie').click( function (e) {
-    //     e.preventDefault()
-    //     fetch(URL, options)
-    //         .then(response => response.json())
-    // });
-
     $('.addMovie').click( function (e) {
         e.preventDefault()
-
-
+        // fetch(URL, options)
+        //     .then(response => response.json())
         console.log($(`#addInput`).val());
+        console.log(typeof(inputText));
     });
 
 //     let textInput = $('.input').val();
 //     $('.deleteMovie').click(
 // //delete movies by ID
-//         fetch(`${URL}/29`,
+//         fetch(`${URL}/27`,
 //             {method: 'DELETE'})
 //     )
 
