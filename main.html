@@ -44,7 +44,7 @@
             $('.movies').append(data[0].id);
 
             data.forEach( movies => {
-                $('.movies').append(`<div>${movies.title}</div>`)
+                $('.movies').append(`<div>${movies.title} ${movies.rating}</div>`)
             });
 
         })
