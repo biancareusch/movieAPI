@@ -4,18 +4,28 @@
     <meta charset="UTF-8">
     <title>MoviesAPI</title>
 </head>
-<body>
+<>
 <div class="movies">MOVIES</div>
-<input class="input">
-<button class="deleteMovie">Delete Movie</button>
+
+<input class="addInput" id="addInput" placeholder="Add Movie">
+<button class="addMovie">Add Movie</button>
+
+<!--<input class="removeInput">-->
+<!--<button class="deleteMovie">Delete Movie</button>-->
 
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous">
+
+</script>
+
 <script>
     const URL = "https://capable-zenith-layer.glitch.me/movies";
+
+    let inputText = $("#addInput").val();
+
     const reviewObj = {
-        title: 'Avatar',
+        title: "'" + $("#addInput").val() + "'",
         rating: 5,
     };
 
@@ -40,17 +50,31 @@
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            $('.movies').append(JSON.stringify(data));
+
+            $('.movies').append(data[0].id);
+
+            data.forEach( movies => {
+                $('.movies').append(`<div>${movies.title} ${movies.rating}</div>`)
+            });
 
         })
         .catch(error => console.log(error))
 
+    $('.addMovie').click( function (e) {
+        e.preventDefault()
+        // fetch(URL, options)
+        //     .then(response => response.json())
+        console.log($(`#addInput`).val());
+        console.log(typeof(inputText));
+    });
+
 //     let textInput = $('.input').val();
 //     $('.deleteMovie').click(
 // //delete movies by ID
-//         fetch(`${URL}/29`,
+//         fetch(`${URL}/27`,
 //             {method: 'DELETE'})
 //     )
+
 </script>
 </body>
 </html>
