@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MoviesAPI</title>
+</head>
+<body>
+<div class="movies"></div>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script>
+    const URL = "https://capable-zenith-layer.glitch.me/movies";
+    const reviewObj = {
+        // id: 1,
+        title: 'Avatar',
+        rating: 5,
+    };
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reviewObj),
+    };
+
+    fetch(URL, options)
+        .then(response => console.log(response))
+        .catch(error => console.error(error));
+</script>
+</body>
+</html>
