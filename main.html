@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>MoviesAPI</title>
 </head>
-<>
+
 <div class="movies">MOVIES</div>
 
 <input class="addInput" id="addInput" placeholder="Add Movie">
-<button class="addMovie">Add Movie</button>
+<button class="addMovie" type="submit">Add Movie</button>
 
 <!--<input class="removeInput">-->
 <!--<button class="deleteMovie">Delete Movie</button>-->
@@ -24,12 +24,12 @@
 
     let inputText = $("#addInput").val();
 
-    const reviewObj = {
-        title: "'" + $("#addInput").val() + "'",
-        rating: 5,
+    let reviewObj = {
+        title: inputText,
+        rating: 4
     };
 
-    const options = {
+    let options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -50,8 +50,7 @@
         .then(response => response.json())
         .then(data => {
             console.log(data);
-
-            $('.movies').append(data[0].id);
+            console.log('type ' + typeof(data[0].title));
 
             data.forEach( movies => {
                 $('.movies').append(`<div>${movies.title} ${movies.rating}</div>`)
@@ -59,13 +58,15 @@
 
         })
         .catch(error => console.log(error))
-
+// TODO: need to insert input text to append()
     $('.addMovie').click( function (e) {
         e.preventDefault()
         // fetch(URL, options)
         //     .then(response => response.json())
+        $('.movies').append(`<div>$("#addInput").val() ${reviewObj.rating}</div>`)
         console.log($(`#addInput`).val());
-        console.log(typeof(inputText));
+        console.log(typeof(JSON.stringify($("#addInput").val())));
+        console.log(reviewObj);
     });
 
 //     let textInput = $('.input').val();
