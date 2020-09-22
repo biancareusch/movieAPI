@@ -40,7 +40,8 @@
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            $('.movies').append(JSON.stringify(data));
+
+            $('.movies').append(data[0].id);
 
         })
         .catch(error => console.log(error))
