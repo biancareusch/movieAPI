@@ -43,6 +43,10 @@
 
             $('.movies').append(data[0].id);
 
+            data.forEach( movies => {
+                $('.movies').append(`<div>${movies.title}</div>`)
+            });
+
         })
         .catch(error => console.log(error))
 
@@ -52,6 +56,7 @@
 //         fetch(`${URL}/29`,
 //             {method: 'DELETE'})
 //     )
+
 </script>
 </body>
 </html>
