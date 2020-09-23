@@ -56,14 +56,18 @@
 
 
             $(document).on("click", ".deleteMovie", function(id){
-                let newUrl = URL + id;
+                let newUrl = URL + 55;
                 console.log(id);
-                const options = {
+                const deleteOptions = {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
                     },
+
                 }
+                fetch(URL, deleteOptions)
+                    .then(response => response.json())
+                    .catch(error => console.log(error))
 
             })
 
