@@ -9,7 +9,7 @@ fetch(URL)
     .then(data => {
         console.log(data);
         data.forEach(movies => {
-            $('.movies').append(`<div>${movies.title} ${movies.rating} <button class='deleteMovie'>X</button></div>`)
+            $('.movies').append(`<div class="movieDiv">${movies.title} ${movies.rating} <button class='deleteMovie'>X</button></div>`)
         });
 
 //add movies
@@ -37,33 +37,13 @@ fetch(URL)
             $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + "<button class='deleteMovie'>X</button>" + "</div>");
         })
 
-        $('.deleteMovie').click((e) => {
+        $('.deleteMovie').click(e => {
             e.preventDefault()
-//adding it to server data
-            let options = {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-
-            };
-
-            fetch(URL, options)
-                .then(response => response.json())
-                .catch(error => console.log(error))
+            console.log(this.getElementsByClassName("movieDiv"));
+            console.log(this.parentElement)
         })
 
-        $(document).on("click", ".deleteMovie", function(id){
-            let newUrl = URL + "/" + 62;
-            console.log(id);
-            const deleteOptions = {
-                method: 'DELETE',
-                headers: {
-
-                    'Content-Type': 'application/json',
-                },
-
-        }})
+        // console.log(document.getElementsByClassName("movieDiv"));
 
 
         //delete movies by ID
@@ -74,6 +54,8 @@ fetch(URL)
 
 
     });
+
+
 
 
 
