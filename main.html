@@ -8,6 +8,13 @@
 <div class="movies">MOVIES</div>
 
 <input class="addInput" id="addInput" placeholder="Add Movie">
+<select class="addRating">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+</select>
 <button class="addMovie" type="submit">Add Movie</button>
 
 
@@ -33,7 +40,7 @@
             $('.addMovie').click((e) => {
                 e.preventDefault()
                 let inputText = $("#addInput").val();
-                let inputRating = "4";
+                let inputRating = $(".addRating").val();
 //new movie object
                 let movieObj = {
                     title: inputText,
@@ -51,30 +58,39 @@
             fetch(URL, options)
                 .then(response => response.json())
                 .catch(error => console.log(error))
-            $('.movies').append("<div>" + $("#addInput").val() + $(movieObj.rating) + "<button class='deleteMovie'>X</button>" + "</div>");
+            $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + "<button class='deleteMovie'>X</button>" + "</div>");
             })
 
 
-            $(document).on("click", ".deleteMovie", function(id){
-                let newUrl = URL + id;
-                console.log(id);
-                const options = {
-                    method: 'DELETE',
+            function deleteID (id){
+                const url = URL + "/" + id
+
+                editData("DELETE", url)
+            }
+
+            deleteID(57)
+
+
+
+            function editData(method, url, obj) {
+
+                let editBody = {
+                    method: method,
                     headers: {
                         'Content-Type': 'application/json',
                     },
                 }
 
-            })
 
 
+                if (obj) {
+                    editBody.body = JSON.stringify(obj);
+                }
 
+            fetch(URL, editBody)
+                .then(response => response.json())
 
-
-
-
-
-
+            }
 
         });
 
