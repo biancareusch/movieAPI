@@ -37,41 +37,78 @@ fetch(URL)
             $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + "<button class='deleteMovie'>X</button>" + "</div>");
         })
 
-
-        function deleteID (id){
-            const url = URL + "/" + id
-
-            editData("DELETE", url)
-        }
-
-        deleteID(57)
-
-
-
-        function editData(method, url, obj) {
-
-            let editBody = {
-                method: method,
+        $('.deleteMovie').click((e) => {
+            e.preventDefault()
+//adding it to server data
+            let options = {
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-            }
+
+            };
+
+            fetch(URL, options)
+                .then(response => response.json())
+                .catch(error => console.log(error))
+        })
+
+        $(document).on("click", ".deleteMovie", function(id){
+            let newUrl = URL + "/" + 62;
+            console.log(id);
+            const deleteOptions = {
+                method: 'DELETE',
+                headers: {
+
+                    'Content-Type': 'application/json',
+                },
+
+        }})
 
 
-
-            if (obj) {
-                editBody.body = JSON.stringify(obj);
-            }
-
-            fetch(URL, editBody)
-                .then(response => console.log(response))
-                .then()
-
+        //delete movies by ID
+        function deleteMovie (id) {
+            fetch(`${URL}/${id}`,
+                {method: 'DELETE'})
         }
+
+        deleteMovie(19)
+
+
+        // function deleteID (id){
+        //     const url = URL + "/" + id
+        //
+        //     editData("DELETE", url)
+        // }
+        //
+        // deleteID(57)
+        //
+        //
+        //
+        // function editData(method, url, obj) {
+        //
+        //     let editBody = {
+        //         method: method,
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     }
+
+
+        //
+        //     if (obj) {
+        //         editBody.body = JSON.stringify(obj);
+        //     }
+        //
+        //     fetch(URL, editBody)
+        //         .then(response => console.log(response))
+        //         .then()
+        //
+        // }
 
     });
 
 
 
-// IIFE
+// IIFE don't touch
 })();
