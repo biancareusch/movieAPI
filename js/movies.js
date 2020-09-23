@@ -72,39 +72,6 @@ fetch(URL)
                 {method: 'DELETE'})
         }
 
-        deleteMovie(19)
-
-
-        // function deleteID (id){
-        //     const url = URL + "/" + id
-        //
-        //     editData("DELETE", url)
-        // }
-        //
-        // deleteID(57)
-        //
-        //
-        //
-        // function editData(method, url, obj) {
-        //
-        //     let editBody = {
-        //         method: method,
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //     }
-
-
-        //
-        //     if (obj) {
-        //         editBody.body = JSON.stringify(obj);
-        //     }
-        //
-        //     fetch(URL, editBody)
-        //         .then(response => console.log(response))
-        //         .then()
-        //
-        // }
 
     });
 
