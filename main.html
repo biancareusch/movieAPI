@@ -8,6 +8,13 @@
 <div class="movies">MOVIES</div>
 
 <input class="addInput" id="addInput" placeholder="Add Movie">
+<select class="addRating">
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+</select>
 <button class="addMovie" type="submit">Add Movie</button>
 
 
@@ -16,68 +23,6 @@
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous">
 
 </script>
-
-<script>
-    //TODO: review functions
-    const URL = "https://capable-zenith-layer.glitch.me/movies";
-    //fetch all movies on server
-    fetch(URL)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            data.forEach(movies => {
-                $('.movies').append(`<div>${movies.title} ${movies.rating} <button class='deleteMovie'>X</button></div>`)
-            });
-
-//add movies
-            $('.addMovie').click((e) => {
-                e.preventDefault()
-                let inputText = $("#addInput").val();
-                let inputRating = "4";
-//new movie object
-                let movieObj = {
-                    title: inputText,
-                    rating: inputRating
-                };
-//adding it to server data
-                let options = {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(movieObj),
-                };
-
-            fetch(URL, options)
-                .then(response => response.json())
-                .catch(error => console.log(error))
-            $('.movies').append("<div>" + $("#addInput").val() + $(movieObj.rating) + "<button class='deleteMovie'>X</button>" + "</div>");
-            })
-
-
-            $(document).on("click", ".deleteMovie", function(id){
-                let newUrl = URL + id;
-                console.log(id);
-                const options = {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                }
-
-            })
-
-
-
-
-
-
-
-
-
-
-        });
-
-</script>
+<script src="js/movies.js" ></script>
 </body>
 </html>
