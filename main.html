@@ -10,8 +10,6 @@
 <input class="addInput" id="addInput" placeholder="Add Movie">
 <button class="addMovie" type="submit">Add Movie</button>
 
-<!--<input class="removeInput">-->
-<!--<button class="deleteMovie">Delete Movie</button>-->
 
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
@@ -20,27 +18,28 @@
 </script>
 
 <script>
+    //TODO: review functions
     const URL = "https://capable-zenith-layer.glitch.me/movies";
+    //fetch all movies on server
     fetch(URL)
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            console.log('type ' + typeof (data[0].title));
             data.forEach(movies => {
-                $('.movies').append(`<div>${movies.title} ${movies.rating}</div>`)
+                $('.movies').append(`<div>${movies.title} ${movies.rating} <button class='deleteMovie'>X</button></div>`)
             });
 
-
+//add movies
             $('.addMovie').click((e) => {
                 e.preventDefault()
                 let inputText = $("#addInput").val();
                 let inputRating = "4";
-
+//new movie object
                 let movieObj = {
                     title: inputText,
                     rating: inputRating
                 };
-
+//adding it to server data
                 let options = {
                     method: 'POST',
                     headers: {
@@ -48,36 +47,36 @@
                     },
                     body: JSON.stringify(movieObj),
                 };
-            })
+
             fetch(URL, options)
                 .then(response => response.json())
                 .catch(error => console.log(error))
-            $('.movies').append("<div>" + $("#addInput").val() + $(movieObj.rating) + "</div>");
+            $('.movies').append("<div>" + $("#addInput").val() + $(movieObj.rating) + "<button class='deleteMovie'>X</button>" + "</div>");
+            })
+
+
+            $(document).on("click", ".deleteMovie", function(id){
+                let newUrl = URL + id;
+                console.log(id);
+                const options = {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+
+            })
+
+
+
+
+
+
+
+
+
 
         });
-
-
-    // TODO: need to insert input text to append()
-    // $('.addMovie').click ((e)=> {
-    //     });
-
-
-    // const deleteFunc = {
-    //     method: 'DELETE',
-    //     id: '24',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(movieObj),
-    // };
-
-
-    //     let textInput = $('.input').val();
-    //     $('.deleteMovie').click(
-    // //delete movies by ID
-    //         fetch(`${URL}/27`,
-    //             {method: 'DELETE'})
-    //     )
 
 </script>
 </body>
