@@ -17,11 +17,11 @@
                 <span>${title}</span>
                 <span>${rating}</span>
                 <select class="editOptions">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                 <option value="4">4</option>
-                 <option value="5">5</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
                 </select>
                 <button class="editRating" type="submit" data-id=${id}>submit</button>
                 <button class='deleteMovie' type="submit" data-id=${id}>X</button>
@@ -88,25 +88,29 @@
 //TODO: sum of old ratings + new rating / rating.length
 //         push new rating, then sum it up, grab by ID
 // //EDIT
-            $(document).on("click", ".editRating", function (e) {
-                e.preventDefault();
-                let editID = $(this).data("id");
-                console.log($(this).parent().select.option);
-            });
+//             $(document).on("click", ".editRating", function (e) {
+//                 e.preventDefault();
+//                 let editID = $(this).data("id");
+//                 console.log($(this).parent().select.value);
+//
+//
+//             fetch(`${URL}${editID}`, {
+//                 method: "PATCH",
+//                 body: JSON.stringify({
+//                     rating: 4,
+//                 }),
+//                 headers: {
+//                     "Content-Type": "application/json"
+//                 }
+//             })
+//                 .then(response => response.json)
+//                 .catch(error => console.log(error))
+//             });
 
-            fetch(URL + "33", {
-                method: "PATCH",
-                body: JSON.stringify({
-                    rating: 4,
-                }),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-                .then(response => response.json)
-                .catch(error => console.log(error))
-
-
+$(".editRating").click(function test(){
+    //this is path to current rating
+    console.log($(this).parent().children()[1]);
+})
 
 
 
