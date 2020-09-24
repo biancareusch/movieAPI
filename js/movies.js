@@ -9,10 +9,12 @@
         .then(response => response.json())
         .then(data => {
             console.log(data);
+
             data.forEach(movies => {
 
                 $('.movies').append(`<div class="movieDiv">${movies.title} ${movies.rating} <button class='deleteMovie' type="submit" data-id=${movies.id}>X</button>`)
             });
+
 
 //add movies
             $('.addMovie').click((e) => {
@@ -37,6 +39,7 @@
                     .then(response => response.json())
                     .catch(error => console.log(error))
                 $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
+
             })
 
 
@@ -48,10 +51,8 @@
                 console.log($(this).parent().html());
                 $(this).parent().fadeOut()
                 deleteMovie(newid);
+
             })
-
-
-
 
 
         });
