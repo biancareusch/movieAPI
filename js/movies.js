@@ -8,7 +8,8 @@
         .then(data => {
             console.log(data);
             data.forEach(movies => {
-                $('.movies').append(`<div class="movieDiv">${movies.title} ${movies.rating} <button class='deleteMovie' type="submit" data-id=“${movies.id}”>X</button>`)
+                let id = movies.id;
+                $('.movies').append(`<div class="movieDiv">${movies.title} ${movies.rating} <button class='deleteMovie' type="submit" data-id=“${id}”>X</button>`)
             });
 
 //add movies
@@ -37,19 +38,27 @@
             })
 
 
-            $(document).on("click", ".deleteMovie", function (e) {
+            //delete movies by ID
+            $(".deleteMovie").click(e => {
                 e.preventDefault();
-                console.log("getting here");
-                console.log(`${URL}`+ $(this).data("id"));
-                let newid = $(this).data("id");
-                console.log(typeof newid);
-                console.log(parseInt(newid));
-                deleteMovie(newid);
+                let newID = $(this).data("id");
+                console.log(newID);
+                deleteMovie(newID);
             })
-//delete movies by ID
-            function deleteMovie(id) {
-                fetch(`${URL}${id}`,
-                    {method: 'DELETE'})
+
+            function deleteMovie(newID) {
+                const deleteOptions = {
+                    "method": "DELETE",
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                };
+                let deleteURL = `${URL}${newID}`;
+
+                fetch(deleteURL, deleteOptions)
+                    .then(response => response.json)
+                    .catch(error => console.log(error))
+
             }
 
 
