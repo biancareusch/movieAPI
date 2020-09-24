@@ -8,7 +8,8 @@
         .then(data => {
             console.log(data);
             data.forEach(movies => {
-                $('.movies').append(`<div class="movieDiv">${movies.title} ${movies.rating} <button class='deleteMovie' type="submit" data-id=“${movies.id}”>X</button>`)
+                let id = movies.id;
+                $('.movies').append(`<div class="movieDiv">${movies.title} ${movies.rating} <button class='deleteMovie' type="submit" data-id=“${id}”>X</button>`)
             });
 
 //add movies
@@ -37,14 +38,11 @@
             })
 
 
-
-
-
             //delete movies by ID
-
-            $(document).on("click", ".deleteMovie", function (e) {
+            $(".deleteMovie").click(e => {
                 e.preventDefault();
                 let newID = $(this).data("id");
+                console.log(newID);
                 deleteMovie(newID);
             })
 
@@ -62,11 +60,6 @@
                     .catch(error => console.log(error))
 
             }
-
-
-
-
-
 
 
         });
