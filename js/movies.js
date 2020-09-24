@@ -43,7 +43,10 @@
             })
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5ac155a562f83c09615ec94848611618c84dc144
             $(document).on("click", ".deleteMovie", function (e) {
                 e.preventDefault();
                 console.log("getting here");
