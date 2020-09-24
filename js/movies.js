@@ -89,6 +89,9 @@
 //TODO: sum of old ratings + new rating / rating.length
 //         push new rating, then sum it up, grab by ID
 // //EDIT
+
+            let ratingArray = []
+
             $(document).on("click", ".editRating", function (e) {
                 e.preventDefault();
                 let editID = $(this).data("id");
@@ -96,13 +99,19 @@
                 console.log($(this).data("id"))
                 console.log(document.getElementById($(this).data("id")).value)
 
+
+
                 let newRating = document.getElementById($(this).data("id")).value
+
+                ratingArray.push(newRating)
+
+                console.log(ratingArray)
                 console.log(newRating)
 
             fetch(`${URL}${editID}`, {
                 method: "PATCH",
                 body: JSON.stringify({
-                    rating: newRating,
+                    rating: (ratingArray.reduce((a, b) => a + b, ))/ratingArray.length,
                 }),
                 headers: {
                     "Content-Type": "application/json"
