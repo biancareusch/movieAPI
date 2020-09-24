@@ -1,6 +1,4 @@
 (function () {
-
-
     const URL = "https://capable-zenith-layer.glitch.me/movies/";
 //fetch all movies on server
 
@@ -10,9 +8,25 @@
         .then(data => {
             console.log(data);
 
-            data.forEach(movies => {
-
-                $('.movies').append(`<div class="movieDiv">${movies.title} ${movies.rating} <button class='deleteMovie' type="submit" data-id=${movies.id}>X</button>`)
+            data.forEach(movie => {
+                let html = "";
+                let id = movie.id;
+                let title = movie.title;
+                let rating = movie.rating;
+                html = `<div class="movieDiv">
+                <span>${title}</span>
+                <span>${rating}</span>
+                <select class="editOptions">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <button class="editRating" type="submit" data-id=${id}>submit</button>
+                <button class='deleteMovie' type="submit" data-id=${id}>X</button>
+                </div>`
+                $('.movies').append(html);
             });
 
 
@@ -38,7 +52,7 @@
                 fetch(URL, options)
                     .then(response => response.json())
                     .catch(error => console.log(error))
-                $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
+                // $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
 
             })
 
@@ -46,7 +60,7 @@
             $(document).on("click", ".deleteMovie", function (e) {
                 e.preventDefault();
                 console.log("getting here");
-                console.log(`${URL}`+ $(this).data("id"));
+                console.log(`${URL}` + $(this).data("id"));
                 let newid = $(this).data("id");
                 console.log($(this).parent().html());
                 $(this).parent().fadeOut()
@@ -55,31 +69,52 @@
             })
 
 
-        });
+            function deleteMovie(newId) {
+                const deleteOptions = {
+                    "method": "DELETE",
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                };
+                let deleteURL = `${URL}${newId}`;
 
-    function deleteMovie(newId) {
-        const deleteOptions = {
-            "method": "DELETE",
-            "headers": {
-                "Content-Type": "application/json"
-            },
-        };
-        let deleteURL = `${URL}${newId}`;
+                fetch(deleteURL, deleteOptions)
+                    .then(response => response.json)
+                    .catch(error => console.log(error))
 
-        fetch(deleteURL, deleteOptions)
-            .then(response => response.json)
-            .catch(error => console.log(error))
-
-    }
+            }
 
 
-//EDIT
-//     $(document).on("click", ".edit", function(e){
-//         e.preventDefault();
-//         console.log("Edited");
-//         let editID = $(this).data("id");
-//         console.log(editID);
+//TODO: sum of old ratings + new rating / rating.length
+//         push new rating, then sum it up, grab by ID
+// //EDIT
+//             $(document).on("click", ".editRating", function (e) {
+//                 e.preventDefault();
+//                 let editID = $(this).data("id");
+//                 console.log($(this).parent().select.value);
+//
+//
+//             fetch(`${URL}${editID}`, {
+//                 method: "PATCH",
+//                 body: JSON.stringify({
+//                     rating: 4,
+//                 }),
+//                 headers: {
+//                     "Content-Type": "application/json"
+//                 }
+//             })
+//                 .then(response => response.json)
+//                 .catch(error => console.log(error))
+//             });
+
+$(".editRating").click(function test(){
+    //this is path to current rating
+    console.log($(this).parent().children()[1]);
+})
 
 
+
+//data fetch
+        })
 // IIFE don't touch
 })();
