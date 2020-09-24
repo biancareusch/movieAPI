@@ -8,8 +8,8 @@
         .then(data => {
             console.log(data);
             data.forEach(movies => {
-                let id = movies.id;
-                $('.movies').append(`<div class="movieDiv">${movies.title} ${movies.rating} <button class='deleteMovie' type="submit" data-id=“${id}”>X</button>`)
+
+                $('.movies').append(`<div class="movieDiv">${movies.title} ${movies.rating} <button class='deleteMovie' type="submit" data-id=${movies.id}>X</button>`)
             });
 
 //add movies
@@ -38,22 +38,36 @@
             })
 
 
-            //delete movies by ID
-            $(".deleteMovie").click(e => {
+            $(document).on("click", ".deleteMovie", function (e) {
                 e.preventDefault();
-                let newID = $(this).data("id");
-                console.log(newID);
-                deleteMovie(newID);
+                console.log("getting here");
+                console.log(`${URL}`+ $(this).data("id"));
+                let urlId = `${URL}`+ $(this).data("id")
+                let newid = $(this).data("id");
+
+                deleteMovie(newid);
             })
 
-            function deleteMovie(newID) {
+            //delete movies by ID
+
+
+
+            //delete movies by ID
+
+            //     function deleteMovie(id) {
+            //     fetch(`${URL}${id}`,
+            // {method: 'DELETE'})
+            // }
+            // });
+
+            function deleteMovie(newId) {
                 const deleteOptions = {
                     "method": "DELETE",
                     "headers": {
                         "Content-Type": "application/json"
                     },
                 };
-                let deleteURL = `${URL}${newID}`;
+                let deleteURL = `${URL}${newId}`;
 
                 fetch(deleteURL, deleteOptions)
                     .then(response => response.json)
