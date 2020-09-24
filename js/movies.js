@@ -1,7 +1,7 @@
 (function () {
 
 
-    const URL = "https://capable-zenith-layer.glitch.me/movies";
+    const URL = "https://capable-zenith-layer.glitch.me/movies/";
 //fetch all movies on server
     fetch(URL)
         .then(response => response.json())
@@ -37,26 +37,23 @@
             })
 
 
-            //delete movies by ID
+            $(document).on("click", ".deleteMovie", function (e) {
+                e.preventDefault();
+                console.log("getting here");
+                console.log(`${URL}`+ $(this).data("id"));
+                let newid = $(this).data("id");
+                console.log(typeof newid);
+                console.log(parseInt(newid));
+                deleteMovie(newid);
+            })
+//delete movies by ID
             function deleteMovie(id) {
-                fetch(URL +'/' + id, {method: 'DELETE'})
-                    .then(data => data.json)
-                    console.log(id);
+                fetch(`${URL}${id}`,
+                    {method: 'DELETE'})
             }
-
-$(document).on("click", ".deleteMovie", function(e) {
-    e.preventDefault();
-    console.log("getting here");
-    console.log($(this).data("id"));
-    let newid = $(this).data("id");
-    deleteMovie(newid);
-})
-
 
 
         });
-
-
 
 
 //EDIT
