@@ -7,9 +7,15 @@
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            data.forEach(movies => {
-                $('.movies').append(`<div class="movieDiv">${movies.title} ${movies.rating} <button class='deleteMovie' type="submit" data-id=“${movies.id}”>X</button>`)
-            });
+            function loadMovies() {
+                let html = "";
+                data.forEach(movies => {
+                    html = `<div class="movieDiv">${movies.title} ${movies.rating} <button class='deleteMovie' type="submit" data-id=${movies.id}>X</button>`;
+                    $('.movies').append(html);
+                });
+            }
+
+            loadMovies();
 
 //add movies
             $('.addMovie').click((e) => {
@@ -34,26 +40,45 @@
                     .then(response => response.json())
                     .catch(error => console.log(error))
                 $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
+
             })
 
 
-
+//             $(document).on("click", ".deleteMovie", function (e) {
+//                 e.preventDefault();
+//                 console.log("getting here");
+//                 console.log(`${URL}`+ $(this).data("id"));
+//                 let newid = $(this).data("id");
+//                 console.log(typeof newid);
+//                 console.log(parseInt(newid));
+//                 deleteMovie(newid);
+//             })
+// //delete movies by ID
+//             function deleteMovie(id) {
+//                 fetch(`${URL}${id}`,
+//                     {method: 'DELETE'})
+//             }
             $(document).on("click", ".deleteMovie", function (e) {
                 e.preventDefault();
-                console.log("getting here");
-                console.log(`${URL}`+ $(this).data("id"));
-                let newid = $(this).data("id");
-                console.log(typeof newid);
-                console.log(parseInt(newid));
-                deleteMovie(newid);
+                let newID = $(this).data("id");
+                console.log(newID)
+                deleteMovie(newID);
             })
-//delete movies by ID
-            function deleteMovie(id) {
-                fetch(`${URL}${id}`,
-                    {method: 'DELETE'})
+
+            function deleteMovie(newID) {
+                const deleteOptions = {
+                    "method": "DELETE",
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                };
+                let deleteURL = `${URL}${newID}`;
+
+                fetch(deleteURL, deleteOptions)
+                    .then(response => response.json)
+                    .catch(error => console.log(error))
+
             }
-
-
         });
 
 
