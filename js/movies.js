@@ -37,20 +37,36 @@
             })
 
 
+
+
+
+            //delete movies by ID
+
             $(document).on("click", ".deleteMovie", function (e) {
                 e.preventDefault();
-                console.log("getting here");
-                console.log(`${URL}`+ $(this).data("id"));
-                let newid = $(this).data("id");
-                console.log(typeof newid);
-                console.log(parseInt(newid));
-                deleteMovie(newid);
+                let newID = $(this).data("id");
+                deleteMovie(newID);
             })
-//delete movies by ID
-            function deleteMovie(id) {
-                fetch(`${URL}${id}`,
-                    {method: 'DELETE'})
+
+            function deleteMovie(newID) {
+                const deleteOptions = {
+                    "method": "DELETE",
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                };
+                let deleteURL = `${URL}${newID}`;
+
+                fetch(deleteURL, deleteOptions)
+                    .then(response => response.json)
+                    .catch(error => console.log(error))
+
             }
+
+
+
+
+
 
 
         });
