@@ -42,23 +42,11 @@
                 e.preventDefault();
                 console.log("getting here");
                 console.log(`${URL}`+ $(this).data("id"));
-                let urlId = `${URL}`+ $(this).data("id")
                 let newid = $(this).data("id");
 
                 deleteMovie(newid);
             })
 
-            //delete movies by ID
-
-
-
-            //delete movies by ID
-
-            //     function deleteMovie(id) {
-            //     fetch(`${URL}${id}`,
-            // {method: 'DELETE'})
-            // }
-            // });
 
             function deleteMovie(newId) {
                 const deleteOptions = {
