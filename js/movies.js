@@ -3,6 +3,8 @@
 
     const URL = "https://capable-zenith-layer.glitch.me/movies/";
 //fetch all movies on server
+
+
     fetch(URL)
         .then(response => response.json())
         .then(data => {
@@ -43,34 +45,37 @@
                 console.log("getting here");
                 console.log(`${URL}`+ $(this).data("id"));
                 let newid = $(this).data("id");
-
+                console.log($(this).parent().html());
+                $(this).parent().fadeOut()
                 deleteMovie(newid);
             })
 
 
-            function deleteMovie(newId) {
-                const deleteOptions = {
-                    "method": "DELETE",
-                    "headers": {
-                        "Content-Type": "application/json"
-                    },
-                };
-                let deleteURL = `${URL}${newId}`;
 
-                fetch(deleteURL, deleteOptions)
-                    .then(response => response.json)
-                    .catch(error => console.log(error))
-
-            }
 
 
         });
+
+    function deleteMovie(newId) {
+        const deleteOptions = {
+            "method": "DELETE",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+        };
+        let deleteURL = `${URL}${newId}`;
+
+        fetch(deleteURL, deleteOptions)
+            .then(response => response.json)
+            .catch(error => console.log(error))
+
+    }
 
 
 //EDIT
 //     $(document).on("click", ".edit", function(e){
 //         e.preventDefault();
-//         console.log("something");
+//         console.log("Edited");
 //         let editID = $(this).data("id");
 //         console.log(editID);
 
