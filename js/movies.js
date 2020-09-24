@@ -14,7 +14,16 @@
                 let title = movie.title;
                 let rating = movie.rating;
                 html = `<div class="movieDiv">
-                ${title} ${rating} 
+                <span>${title}</span>
+                <span>${rating}</span>
+                <select class="editOptions">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                 <option value="4">4</option>
+                 <option value="5">5</option>
+                </select>
+                <button class="editRating" type="submit" data-id=${id}>submit</button>
                 <button class='deleteMovie' type="submit" data-id=${id}>X</button>
                 </div>`
                 $('.movies').append(html);
@@ -43,7 +52,7 @@
                 fetch(URL, options)
                     .then(response => response.json())
                     .catch(error => console.log(error))
-                $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
+                // $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
 
             })
 
@@ -60,30 +69,48 @@
             })
 
 
-        });
+            function deleteMovie(newId) {
+                const deleteOptions = {
+                    "method": "DELETE",
+                    "headers": {
+                        "Content-Type": "application/json"
+                    },
+                };
+                let deleteURL = `${URL}${newId}`;
 
-    function deleteMovie(newId) {
-        const deleteOptions = {
-            "method": "DELETE",
-            "headers": {
-                "Content-Type": "application/json"
-            },
-        };
-        let deleteURL = `${URL}${newId}`;
+                fetch(deleteURL, deleteOptions)
+                    .then(response => response.json)
+                    .catch(error => console.log(error))
 
-        fetch(deleteURL, deleteOptions)
-            .then(response => response.json)
-            .catch(error => console.log(error))
-
-    }
+            }
 
 
-//EDIT
-//     $(document).on("click", ".edit", function(e){
-//         e.preventDefault();
-//         console.log("Edited");
-//         let editID = $(this).data("id");
-//         console.log(editID);
+//TODO: sum of old ratings + new rating / rating.length
+//         push new rating, then sum it up, grab by ID
+// //EDIT
+            $(document).on("click", ".editRating", function (e) {
+                e.preventDefault();
+                let editID = $(this).data("id");
+                console.log($(this).parent().select.option);
+            });
 
+            fetch(URL + "33", {
+                method: "PATCH",
+                body: JSON.stringify({
+                    rating: 4,
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => response.json)
+                .catch(error => console.log(error))
+
+
+
+
+
+//data fetch
+        })
 // IIFE don't touch
 })();
