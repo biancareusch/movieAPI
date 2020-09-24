@@ -1,6 +1,4 @@
 (function () {
-
-
     const URL = "https://capable-zenith-layer.glitch.me/movies/";
 //fetch all movies on server
 
@@ -10,9 +8,16 @@
         .then(data => {
             console.log(data);
 
-            data.forEach(movies => {
-
-                $('.movies').append(`<div class="movieDiv">${movies.title} ${movies.rating} <button class='deleteMovie' type="submit" data-id=${movies.id}>X</button>`)
+            data.forEach(movie => {
+                let html = "";
+                let id = movie.id;
+                let title = movie.title;
+                let rating = movie.rating;
+                html = `<div class="movieDiv">
+                ${title} ${rating} 
+                <button class='deleteMovie' type="submit" data-id=${id}>X</button>
+                </div>`
+                $('.movies').append(html);
             });
 
 
@@ -43,14 +48,10 @@
             })
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 5ac155a562f83c09615ec94848611618c84dc144
             $(document).on("click", ".deleteMovie", function (e) {
                 e.preventDefault();
                 console.log("getting here");
-                console.log(`${URL}`+ $(this).data("id"));
+                console.log(`${URL}` + $(this).data("id"));
                 let newid = $(this).data("id");
                 console.log($(this).parent().html());
                 $(this).parent().fadeOut()
@@ -83,7 +84,6 @@
 //         console.log("Edited");
 //         let editID = $(this).data("id");
 //         console.log(editID);
-
 
 // IIFE don't touch
 })();

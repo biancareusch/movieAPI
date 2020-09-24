@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <title>MoviesAPI</title>
 </head>
-<body>
+<body onload="loadingScreen()">
+<div id="loader">Loading...</div>
+
+<div id="page" class="container">
 <div class="movies">MOVIES</div>
 
 <input class="addInput" id="addInput" placeholder="Add Movie">
@@ -16,8 +19,16 @@
     <option value="5">5</option>
 </select>
 <button class="addMovie" type="submit">Add Movie</button>
+</div>
 
 
+<script>
+function loadingScreen (){
+    document.getElementById("loader").style.display = "none";
+    document.getElementById("page").style.display = "block";
+}
+
+</script>
 <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
 <script src="js/movies.js" ></script>
 </body>
