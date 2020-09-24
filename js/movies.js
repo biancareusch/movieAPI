@@ -103,15 +103,24 @@
 
                 let newRating = document.getElementById($(this).data("id")).value
 
-                ratingArray.push(newRating)
+                console.log(ratingArray)
+
+
+                ratingArray.push(parseInt(newRating))
+
+                let addedRating = ratingArray.reduce((a, b) => a + b, 0)
+
+                let averageRating = addedRating/ratingArray.length
+
 
                 console.log(ratingArray)
                 console.log(newRating)
+                console.log(addedRating/ratingArray.length)
 
             fetch(`${URL}${editID}`, {
                 method: "PATCH",
                 body: JSON.stringify({
-                    rating: (ratingArray.reduce((a, b) => a + b, ))/ratingArray.length,
+                    rating: averageRating.toFixed(2),
                 }),
                 headers: {
                     "Content-Type": "application/json"
