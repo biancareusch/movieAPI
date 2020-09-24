@@ -3,19 +3,18 @@
 
     const URL = "https://capable-zenith-layer.glitch.me/movies/";
 //fetch all movies on server
+
+
     fetch(URL)
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            function loadMovies() {
-                let html = "";
-                data.forEach(movies => {
-                    html = `<div class="movieDiv">${movies.title} ${movies.rating} <button class='deleteMovie' type="submit" data-id=${movies.id}>X</button>`;
-                    $('.movies').append(html);
-                });
-            }
 
-            loadMovies();
+            data.forEach(movies => {
+
+                $('.movies').append(`<div class="movieDiv">${movies.title} ${movies.rating} <button class='deleteMovie' type="submit" data-id=${movies.id}>X</button>`)
+            });
+
 
 //add movies
             $('.addMovie').click((e) => {
@@ -44,48 +43,40 @@
             })
 
 
-//             $(document).on("click", ".deleteMovie", function (e) {
-//                 e.preventDefault();
-//                 console.log("getting here");
-//                 console.log(`${URL}`+ $(this).data("id"));
-//                 let newid = $(this).data("id");
-//                 console.log(typeof newid);
-//                 console.log(parseInt(newid));
-//                 deleteMovie(newid);
-//             })
-// //delete movies by ID
-//             function deleteMovie(id) {
-//                 fetch(`${URL}${id}`,
-//                     {method: 'DELETE'})
-//             }
             $(document).on("click", ".deleteMovie", function (e) {
                 e.preventDefault();
-                let newID = $(this).data("id");
-                console.log(newID)
-                deleteMovie(newID);
+                console.log("getting here");
+                console.log(`${URL}`+ $(this).data("id"));
+                let newid = $(this).data("id");
+                console.log($(this).parent().html());
+                $(this).parent().fadeOut()
+                deleteMovie(newid);
+
             })
 
-            function deleteMovie(newID) {
-                const deleteOptions = {
-                    "method": "DELETE",
-                    "headers": {
-                        "Content-Type": "application/json"
-                    },
-                };
-                let deleteURL = `${URL}${newID}`;
 
-                fetch(deleteURL, deleteOptions)
-                    .then(response => response.json)
-                    .catch(error => console.log(error))
-
-            }
         });
+
+    function deleteMovie(newId) {
+        const deleteOptions = {
+            "method": "DELETE",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+        };
+        let deleteURL = `${URL}${newId}`;
+
+        fetch(deleteURL, deleteOptions)
+            .then(response => response.json)
+            .catch(error => console.log(error))
+
+    }
 
 
 //EDIT
 //     $(document).on("click", ".edit", function(e){
 //         e.preventDefault();
-//         console.log("something");
+//         console.log("Edited");
 //         let editID = $(this).data("id");
 //         console.log(editID);
 
