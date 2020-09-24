@@ -112,6 +112,10 @@
 
                 let averageRating = addedRating/ratingArray.length
 
+                $(this).parent().next(".currentRating").html(averageRating)
+
+
+
 
                 console.log(ratingArray)
                 console.log(newRating)
