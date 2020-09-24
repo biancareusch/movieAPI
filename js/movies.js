@@ -109,7 +109,7 @@
 
 $(".editRating").click(function test(){
     //this is path to current rating
-    console.log($(this).parent().children()[1]);
+    console.log($(".editOptions :selected").val());
 })
 
 
