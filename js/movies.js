@@ -13,19 +13,20 @@
                 let id = movie.id;
                 let title = movie.title;
                 let rating = movie.rating;
-                html = `<div class="movieDiv">
-                <span>${title}</span>
-                <span>${rating}</span>
-                <select class="editOptions">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-                <button class="editRating" type="submit" data-id=${id}>submit</button>
-                <button class='deleteMovie' type="submit" data-id=${id}>X</button>
-                </div>`
+                html =
+                    `<div class="movieDiv">
+                            <span>${title}</span>
+                            <span class="currentRating">${rating}</span>
+                            <select class="editOptions" id=${id}>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <button class="editRating" type="submit" data-id=${id}>submit</button>
+                            <button class='deleteMovie' type="submit" data-id=${id}>X</button>
+                        </div>`
                 $('.movies').append(html);
             });
 
@@ -52,7 +53,7 @@
                 fetch(URL, options)
                     .then(response => response.json())
                     .catch(error => console.log(error))
-                // $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
+                $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
 
             })
 
@@ -88,29 +89,44 @@
 //TODO: sum of old ratings + new rating / rating.length
 //         push new rating, then sum it up, grab by ID
 // //EDIT
-//             $(document).on("click", ".editRating", function (e) {
-//                 e.preventDefault();
-//                 let editID = $(this).data("id");
-//                 console.log($(this).parent().select.value);
-//
-//
-//             fetch(`${URL}${editID}`, {
-//                 method: "PATCH",
-//                 body: JSON.stringify({
-//                     rating: 4,
-//                 }),
-//                 headers: {
-//                     "Content-Type": "application/json"
-//                 }
-//             })
-//                 .then(response => response.json)
-//                 .catch(error => console.log(error))
-//             });
 
-$(".editRating").click(function test(){
-    //this is path to current rating
-    console.log($(".editOptions :selected").val());
-})
+            let ratingArray = []
+
+            $(document).on("click", ".editRating", function (e) {
+                e.preventDefault();
+                let editID = $(this).data("id");
+                // console.log($(this).parent().select.value);
+                console.log($(this).data("id"))
+                console.log(document.getElementById($(this).data("id")).value)
+
+
+
+                let newRating = document.getElementById($(this).data("id")).value
+
+                ratingArray.push(newRating)
+
+                console.log(ratingArray)
+                console.log(newRating)
+
+            fetch(`${URL}${editID}`, {
+                method: "PATCH",
+                body: JSON.stringify({
+                    rating: (ratingArray.reduce((a, b) => a + b, ))/ratingArray.length,
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => response.json)
+                .catch(error => console.log(error))
+
+
+            });
+
+// $(".editRating").click(function test(){
+//     //this is path to current rating
+//     console.log($(".editOptions :selected").val());
+// })
 
 
 
