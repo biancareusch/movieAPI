@@ -73,7 +73,9 @@
                     let movieLayout = ("<h1>" + title + "</h1><br><img src='"+ posterURL +
                     "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href='"+ imdburl + "'target='_blank'>" + imdburl+ "</a></p>")
                     // document.getElementById("posterImage").innerHTML = movieLayout
-                    $("#posterImage").append(movieLayout)
+                    // $("#posterImage").append(movieLayout)
+
+                    $(".movies").append(movieLayout)
 
                 })
                 }
