@@ -17,7 +17,7 @@
                     `<div class="movieDiv card" style="width: 5vw;">
                             <div class="card-body">
                                 <span class='card-img-top' id="${title}">${title}</span>
-                                <span class="currentRating" style="font-size: 2em;"> Rating: ${rating}</span>
+                                <span class="currentRating" style="font-size: 2em;"> Rating:${rating}</span>
                                 <br>
                                      <select class="editOptions" id=${id}>
                                          <option value="1">1</option>
@@ -28,7 +28,7 @@
                                      </select>
                                 <button class="editRating btn-primary" data-toggle="button" type="submit" data-id=${id}>Submit Ranking</button>
                                 <br>
-                                <button class='deleteMovie btn btn-primary' data-toggle="button" type="submit" data-id=${id}><i class="far fa-trash-alt"></i></button>
+                                <button class='deleteMovie btn btn-primary btn-danger' data-toggle="button" type="submit" data-id=${id}><i class="far fa-trash-alt"></i></button>
                             </div>
                     </div>`
                 $('.movies').append(html);
@@ -62,7 +62,7 @@
                 singleMovie(title)
 
 
-            });
+
 
 
 //add movies
@@ -87,10 +87,9 @@
                 fetch(URL, options)
                     .then(response => response.json())
                     .catch(error => console.log(error))
-                // $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
+                $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
     //TODO: the newly added movie objects need to be added to data object, so they can be displayed right
-                data.push(movieObj);
-
+    //             data.push(movieObj) ?!;
                 let data;
 
                 function getMoviePoster(movie) {
@@ -206,7 +205,7 @@
 //     //this is path to current rating
 //     console.log($(".editOptions :selected").val());
 // })
-
+            });
 
 //data fetch
         })
