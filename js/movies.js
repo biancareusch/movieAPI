@@ -70,8 +70,10 @@
                     let year = data.Search[0].Year;
                     let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
                     let posterURL = data.Search[0].Poster;
-                    document.getElementById("posterImage").innerHTML = "<h1>" + title + "</h1><br><img src='"+ posterURL +
-                        "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href="+ imdburl + "target='_blank'>" + imdburl+ "</a></p>"
+                    let movieLayout = ("<h1>" + title + "</h1><br><img src='"+ posterURL +
+                    "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href='"+ imdburl + "'target='_blank'>" + imdburl+ "</a></p>")
+                    // document.getElementById("posterImage").innerHTML = movieLayout
+                    $("#posterImage").append(movieLayout)
 
                 })
                 }
