@@ -16,7 +16,7 @@
                 let rating = movie.rating;
                 html =
                     `<div class="movieDiv">
-                            <span>${title}</span>
+                            <span id="${title}" >${title}</span>
                             <span class="currentRating">${rating}</span>
                             <select class="editOptions" id=${id}>
                                 <option value="1">1</option>
@@ -51,7 +51,7 @@
                         // document.getElementById("posterImage").innerHTML = movieLayout
                         // $("#posterImage").append(movieLayout)
 
-                        $(".movies").append(movieLayout)
+                        document.getElementById(title).innerHTML = movieLayout
 
                     })
                 }
