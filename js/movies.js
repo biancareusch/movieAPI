@@ -56,6 +56,28 @@
                     .catch(error => console.log(error))
                 $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
 
+
+                let data;
+
+                function getMoviePoster(movie) {
+
+
+                $.get("http://www.omdbapi.com/?s=" + movie + "&apikey=996b9c18", function (rawdata) {
+                    let rawString = JSON.stringify(rawdata)
+
+                    data = JSON.parse(rawString)
+                    let title = data.Search[0].Title;
+                    let year = data.Search[0].Year;
+                    let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
+                    let posterURL = data.Search[0].Poster;
+                    document.getElementById("posterImage").innerHTML = "<h1>" + title + "</h1><br><img src='"+ posterURL +
+                        "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href="+ imdburl + "target='_blank'>" + imdburl+ "</a></p>"
+
+                })
+                }
+
+                getMoviePoster(inputText)
+
             })
 
 
