@@ -3,6 +3,7 @@
 //fetch all movies on server
 
 
+
     fetch(URL)
         .then(response => response.json())
         .then(data => {
@@ -98,6 +99,8 @@
                 // console.log($(this).parent().select.value);
                 console.log($(this).data("id"))
                 console.log(document.getElementById($(this).data("id")).value)
+
+
 
 
 
