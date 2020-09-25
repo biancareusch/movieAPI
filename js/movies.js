@@ -3,6 +3,7 @@
 //fetch all movies on server
 
 
+
     fetch(URL)
         .then(response => response.json())
         .then(data => {
@@ -15,7 +16,7 @@
                 let rating = movie.rating;
                 html =
                     `<div class="movieDiv">
-                            <span>${title}</span>
+                            <span id="${title}" >${title}</span>
                             <span class="currentRating">${rating}</span>
                             <select class="editOptions" id=${id}>
                                 <option value="1">1</option>
@@ -28,7 +29,46 @@
                             <button class='deleteMovie' type="submit" data-id=${id}>X</button>
                         </div>`
                 $('.movies').append(html);
+
+
+                // function that gets just the image of a movie
+
+                function singleMovie(title) {
+
+
+                    $.get("http://www.omdbapi.com/?s=" + title + "&apikey=996b9c18", function (rawdata) {
+                        let rawString = JSON.stringify(rawdata)
+
+                        data = JSON.parse(rawString)
+                        let title = data.Search[0].Title;
+                        let year = data.Search[0].Year;
+                        let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
+                        let posterURL = data.Search[0].Poster;
+                        let movieLayout = ("<img src='" + posterURL + "'</>")
+
+                        // ("<h1>" + title + "</h1><br><img src='"+ posterURL +
+                        // "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href='"+ imdburl + "'target='_blank'>" + imdburl+ "</a></p>")
+                        // document.getElementById("posterImage").innerHTML = movieLayout
+                        // $("#posterImage").append(movieLayout)
+
+                        document.getElementById(title).innerHTML = movieLayout
+
+                    })
+                }
+
+                singleMovie(title)
+
+
+
+
+
             });
+
+
+
+
+
+
 
 
 //add movies
@@ -54,6 +94,34 @@
                     .then(response => response.json())
                     .catch(error => console.log(error))
                 $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
+
+
+                let data;
+
+                function getMoviePoster(movie) {
+
+
+                $.get("http://www.omdbapi.com/?s=" + movie + "&apikey=996b9c18", function (rawdata) {
+                    let rawString = JSON.stringify(rawdata)
+
+                    data = JSON.parse(rawString)
+                    let title = data.Search[0].Title;
+                    let year = data.Search[0].Year;
+                    let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
+                    let posterURL = data.Search[0].Poster;
+                    let movieLayout = ("<h1>" + title + "</h1><br><img src='"+ posterURL +
+                    "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href='"+ imdburl + "'target='_blank'>" + imdburl+ "</a></p>")
+
+
+                    // document.getElementById("posterImage").innerHTML = movieLayout
+                    // $("#posterImage").append(movieLayout)
+
+                    $(".movies").append(movieLayout)
+
+                })
+                }
+
+                getMoviePoster(inputText)
 
             })
 
@@ -101,17 +169,32 @@
 
 
 
+
+
                 let newRating = document.getElementById($(this).data("id")).value
 
-                ratingArray.push(newRating)
+                console.log(ratingArray)
+
+
+                ratingArray.push(parseInt(newRating))
+
+                let addedRating = ratingArray.reduce((a, b) => a + b, 0)
+
+                let averageRating = addedRating/ratingArray.length
+
+                $(this).parent().next(".currentRating").html(averageRating)
+
+
+
 
                 console.log(ratingArray)
                 console.log(newRating)
+                console.log(addedRating/ratingArray.length)
 
             fetch(`${URL}${editID}`, {
                 method: "PATCH",
                 body: JSON.stringify({
-                    rating: (ratingArray.reduce((a, b) => a + b, ))/ratingArray.length,
+                    rating: averageRating.toFixed(2),
                 }),
                 headers: {
                     "Content-Type": "application/json"
