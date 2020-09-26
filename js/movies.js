@@ -14,7 +14,7 @@
                 let title = movie.title;
                 let rating = movie.rating;
                 html =
-                    `<div class="movieDiv card" style="width: 5vw;">
+                    `<div class="card movieDiv">
                             <div class="card-body">
                                 <span class='card-img-top' id="${title}">${title}</span>
                                 <span class="currentRating" style="font-size: 2em;"> Rating:${rating}</span>
@@ -87,7 +87,7 @@
                 fetch(URL, options)
                     .then(response => response.json())
                     .catch(error => console.log(error))
-                $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
+                $('.newmovies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
     //TODO: the newly added movie objects need to be added to data object, so they can be displayed right
     //             data.push(movieObj) ?!;
                 let data;

@@ -1,31 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
 
-body {
-    display: flex;
-    flex-direction: row;
-    margin: 3vw;
-    padding-top: 15vh;
-    font-family: 'Dosis', sans-serif;
-    background-image: url("aED1AMU-theater-backgrounds.jpg");
+ /*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+
 }
 
-img {
-    width: 17vw;
-    box-shadow: 0.5vw 0.5vw 0.5vw black;
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+
 }
 
-.logo {
-    width: 9vw;
-    box-shadow: none;
+/*Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+    body {
+        display: flex;
+        flex-direction: row;
+        margin: 3vw;
+        padding-top: 13vh;
+        font-family: 'Dosis', sans-serif;
+        background-image: url("aED1AMU-theater-backgrounds.jpg");
+    }
+
+    img {
+        width: 17vw;
+        box-shadow: 0.5vw 0.5vw 0.5vw black;
+    }
+
+    .logo {
+        width: 9vw;
+        box-shadow: none;
+    }
+
+    .movies {
+        display: flex;
+        flex-direction: row;
+        color: white;
+        width: 90vw;
+        align-items: baseline;
+    }
+
+    button, select {
+        color: black;
+    }
+
+    .labelID{
+        font-size: 5vh;
+        color:white;
+    }
+
+    #newMovieLabel{
+        display:none;
+    }
+
 }
 
-.movies {
-    display: flex;
-    flex-direction: row;
-    color: white;
-    width: 2vw;
-}
-
-button, select {
-    color: black;
-}
