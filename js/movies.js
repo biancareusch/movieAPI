@@ -17,6 +17,7 @@
                     `<div class="card movieDiv">
                             <div class="card-body">
                                 <span class='card-img-top' id="${title}">${title}</span>
+                                <br>
                                 <span class="currentRating" style="font-size: 2em;"> Rating:${rating}</span>
                                 <br>
                                      <select class="editOptions" id=${id}>
@@ -154,12 +155,7 @@
             }
 
 
-//TODO: sum of old ratings + new rating / rating.length
-//         push new rating, then sum it up, grab by ID
-// //EDIT
-
-            let ratingArray = []
-
+//TODO: RATINGS array doesnt take in new ratings
             $(document).on("click", ".editRating", function (e) {
                 e.preventDefault();
                 let editID = $(this).data("id");
@@ -167,7 +163,7 @@
                 console.log($(this).data("id"))
                 console.log(document.getElementById($(this).data("id")).value)
 
-
+                let ratingArray = []
                 let newRating = document.getElementById($(this).data("id")).value
 
                 console.log(ratingArray)
@@ -182,9 +178,9 @@
                 $(this).parent().next(".currentRating").html(averageRating)
 
 
-                console.log(ratingArray)
-                console.log(newRating)
-                console.log(addedRating / ratingArray.length)
+                console.log("rating array" + ratingArray)
+                console.log("new rating"+newRating)
+                console.log("average" + addedRating / ratingArray.length)
 
                 fetch(`${URL}${editID}`, {
                     method: "PATCH",

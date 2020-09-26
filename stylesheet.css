@@ -37,6 +37,7 @@
         color: white;
         width: 90vw;
         align-items: baseline;
+        flex-flow: row wrap;
     }
 
     button, select {
@@ -52,5 +53,8 @@
         display:none;
     }
 
+    .card{
+        padding: 1vw;
+    }
 }
 
