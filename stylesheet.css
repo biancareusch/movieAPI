@@ -17,6 +17,11 @@ body {
     border-radius: 5px;
     margin: 1vw;
 }
+.navbar-form{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 .labelID {
     font-size: 4vh;
@@ -50,7 +55,6 @@ input {
     position: absolute;
     left: 50%;
     margin-left: -20vw;
-    display: block;
 }
 
 .inputGroup {
@@ -83,7 +87,11 @@ button, select {
     }
 
     .logo {
-        width: 30vw;
+        width: 40vw;
+        position: absolute;
+        left: 50%;
+        margin-left: -20vw;
+        margin-top: -1vh;
     }
 
     #newMovieLabel {
@@ -94,7 +102,17 @@ button, select {
 
 /*Medium devices (tablets, 768px and up)*/
 @media (min-width: 768px) {
-
+    .navbar-form{
+        display:flex;
+        justify-content: space-between;
+        width:90vw;
+    }
+    .logo {
+        width: 40vw;
+    }
+    .addRating{
+        width: 7vw;
+    }
 }
 
 /*Large devices (desktops, 992px and up)*/
