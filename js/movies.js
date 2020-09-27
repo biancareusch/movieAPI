@@ -94,7 +94,7 @@
                 fetch(URL, options)
                     .then(response => response.json())
                     .catch(error => console.log(error))
-                $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
+                $('#newPosterImage').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
 
 
                 let data;
@@ -113,11 +113,7 @@
                     let movieLayout = ("<h1>" + title + "</h1><br><img src='"+ posterURL +
                     "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href='"+ imdburl + "'target='_blank'>" + imdburl+ "</a></p>")
 
-
-                    // document.getElementById("posterImage").innerHTML = movieLayout
-                    // $("#posterImage").append(movieLayout)
-
-                    $(".movies").append(movieLayout)
+                    $("#newPosterImage").append(movieLayout)
 
                 })
                 }
