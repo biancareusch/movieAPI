@@ -1,4 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
+
+body {
+    display: flex;
+    flex-direction: row;
+    margin: 3vw;
+    padding-top: 25vh;
+    font-family: 'Dosis', sans-serif;
+    background-image: url("aED1AMU-theater-backgrounds.jpg");
+    text-align: center;
+    flex-flow: row wrap;
+}
+
+.card {
+    padding: 3vw;
+    background: rgba(222, 222, 222, 0.30);
+    border-radius: 5px;
+    margin: 1vw;
+}
+.navbar-form{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.labelID {
+    font-size: 4vh;
+    color: white;
+    text-align: center;
+}
+
 img {
-    background-image: url("images/squidart.jpg");
-    width: 400px;
+    box-shadow: 2vw 2vw 1vw black;
+}
+
+input {
+    text-align: center;
+}
+
+.addRatingLabel {
+    font-size: 3vh;
+}
+
+.addRating {
+    width: 30vw;
+}
+
+.form-group {
+    margin-top: 9vh;
+}
+
+.logo {
+    width: 40vw;
+    box-shadow: none;
+    position: absolute;
+    left: 50%;
+    margin-left: -20vw;
+}
+
+.inputGroup {
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+.movies {
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+#newMovieLabel {
+    display: none;
+}
+
+button, select {
+    color: black;
+}
+
+/*Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) {
+    .body {
+        padding-top: 20vh;
+    }
+
+    .logo {
+        width: 40vw;
+        position: absolute;
+        left: 50%;
+        margin-left: -20vw;
+        margin-top: -1vh;
+    }
+
+    #newMovieLabel {
+        display: none;
+    }
+
+}
+
+/*Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) {
+    .navbar-form{
+        display:flex;
+        justify-content: space-between;
+        width:90vw;
+    }
+    .logo {
+        width: 40vw;
+    }
+    .addRating{
+        width: 7vw;
+    }
+}
+
+/*Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+    body {
+        display: flex;
+        flex-direction: row;
+        margin: 3vw;
+        padding-top: 13vh;
+        font-family: 'Dosis', sans-serif;
+        background-image: url("aED1AMU-theater-backgrounds.jpg");
+    }
+
+    img {
+        width: 17vw;
+    }
+
+    .logo {
+        width: 9vw;
+    }
+
+    .movies {
+        width: 90vw;
+    }
+
+    .labelID {
+        font-size: 5vh;
+    }
+
+
+
+    .card {
+        padding: 1vw;
+    }
+}
+
+/*ExtraLarge devices (desktops, 992px and up)*/
+@media (min-width: 1200px) {
+    .card {
+        padding: 0.5vw;
+    }
+
+    img {
+        box-shadow: .25vw .25vw .25vw black;
+    }
+
+    img {
+        width: 14vw;
+        box-shadow: 0.5vw 0.5vw 0.5vw black;
+    }
 }
