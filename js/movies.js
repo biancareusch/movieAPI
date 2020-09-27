@@ -18,8 +18,9 @@
                             <div class="card-body">
                                 <span class='card-img-top' id="${title}">${title}</span>
                                 <br>
-                                <span class="currentRating" style="font-size: 2em;"> Rating:${rating}</span>
+                                <span class="currentRating mt-10" style="font-size: 2em;"> Rating:${rating}</span>
                                 <br>
+                                <div class="submitDiv">
                                      <select class="editOptions" id=${id}>
                                          <option value="1">1</option>
                                          <option value="2">2</option>
@@ -28,9 +29,10 @@
                                          <option value="5">5</option>
                                      </select>
                                 <button class="editRating btn-primary" data-toggle="button" type="submit" data-id=${id}>Submit Ranking</button>
-                                <br>
-                                <button class='deleteMovie btn btn-primary btn-danger' data-toggle="button" type="submit" data-id=${id}><i class="far fa-trash-alt"></i></button>
-                            </div>
+                               
+                                <button class='deleteMovie deleteBtn btn btn-primary btn-danger' data-toggle="button" type="submit" data-id=${id}><i class="far fa-trash-alt"></i></button>
+                          </div>  
+                          </div>
                     </div>`
                 $('.movies').append(html);
 
