@@ -3,7 +3,6 @@
 //fetch all movies on server
 
 
-
     fetch(URL)
         .then(response => response.json())
         .then(data => {
@@ -15,19 +14,26 @@
                 let title = movie.title;
                 let rating = movie.rating;
                 html =
-                    `<div class="movieDiv">
-                            <span id="${title}" >${title}</span>
-                            <span class="currentRating">${rating}</span>
-                            <select class="editOptions" id=${id}>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                            <button class="editRating" type="submit" data-id=${id}>submit</button>
-                            <button class='deleteMovie' type="submit" data-id=${id}>X</button>
-                        </div>`
+                    `<div class="card movieDiv">
+                            <div class="card-body">
+                                <span class='card-img-top' id="${title}">${title}</span>
+                                <br>
+                                <span class="currentRating mt-10" style="font-size: 2em;"> Rating:${rating}</span>
+                                <br>
+                                <div class="submitDiv">
+                                     <select class="editOptions" id=${id}>
+                                         <option value="1">1</option>
+                                         <option value="2">2</option>
+                                         <option value="3">3</option>
+                                         <option value="4">4</option>
+                                         <option value="5">5</option>
+                                     </select>
+                                <button class="editRating btn-primary" data-toggle="button" type="submit" data-id=${id}>Submit Ranking</button>
+                               
+                                <button class='deleteMovie deleteBtn btn btn-primary btn-danger' data-toggle="button" type="submit" data-id=${id}><i class="far fa-trash-alt"></i></button>
+                          </div>  
+                          </div>
+                    </div>`
                 $('.movies').append(html);
 
 
@@ -44,28 +50,19 @@
                         let year = data.Search[0].Year;
                         let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
                         let posterURL = data.Search[0].Poster;
-                        let movieLayout = ("<img src='" + posterURL + "'</>")
+                        let movieLayout = ("<img class='card-img-top' src='" + posterURL + "'</>")
 
                         // ("<h1>" + title + "</h1><br><img src='"+ posterURL +
                         // "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href='"+ imdburl + "'target='_blank'>" + imdburl+ "</a></p>")
                         // document.getElementById("posterImage").innerHTML = movieLayout
                         // $("#posterImage").append(movieLayout)
 
-                        document.getElementById(title).innerHTML = movieLayout
+                        document.getElementById(title).innerHTML = movieLayout;
 
                     })
                 }
 
                 singleMovie(title)
-
-
-
-
-
-            });
-
-
-
 
 
 
@@ -81,7 +78,7 @@
                     title: inputText,
                     rating: inputRating
                 };
-//adding it to server data
+//adding it to server
                 let options = {
                     method: 'POST',
                     headers: {
@@ -93,32 +90,38 @@
                 fetch(URL, options)
                     .then(response => response.json())
                     .catch(error => console.log(error))
-                $('.movies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
-
-
+                $('.newmovies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
+    //TODO: the newly added movie objects need to be added to data object, so they can be displayed right
+    //             data.push(movieObj) ?!;
                 let data;
 
                 function getMoviePoster(movie) {
 
 
-                $.get("http://www.omdbapi.com/?s=" + movie + "&apikey=996b9c18", function (rawdata) {
-                    let rawString = JSON.stringify(rawdata)
+                    $.get("http://www.omdbapi.com/?s=" + movie + "&apikey=996b9c18", function (rawdata) {
+                        let rawString = JSON.stringify(rawdata)
 
-                    data = JSON.parse(rawString)
-                    let title = data.Search[0].Title;
-                    let year = data.Search[0].Year;
-                    let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
-                    let posterURL = data.Search[0].Poster;
-                    let movieLayout = ("<h1>" + title + "</h1><br><img src='"+ posterURL +
-                    "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href='"+ imdburl + "'target='_blank'>" + imdburl+ "</a></p>")
+                        data = JSON.parse(rawString)
+                        let title = data.Search[0].Title;
+                        let year = data.Search[0].Year;
+                        let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
+                        let posterURL = data.Search[0].Poster;
+                        let movieLayout = (
+                            "<h1>" + title + "</h1>" +
+                            "<br>" +
+                            "<img class='card-img-top'src='" + posterURL + "'</>" +
+                            "<br>" +
+                            "<p>Year Released:" + year + "</p>" +
+                            "<br>" +
+                            "<p>IMDB Page: <a href='" + imdburl + "' target='_blank'>" + imdburl + "</a></p>")
 
 
-                    // document.getElementById("posterImage").innerHTML = movieLayout
-                    // $("#posterImage").append(movieLayout)
+                        // document.getElementById("posterImage").innerHTML = movieLayout
+                        // $("#posterImage").append(movieLayout)
 
-                    $(".movies").append(movieLayout)
+                        $(".movies").append(movieLayout)
 
-                })
+                    })
                 }
 
                 getMoviePoster(inputText)
@@ -154,12 +157,7 @@
             }
 
 
-//TODO: sum of old ratings + new rating / rating.length
-//         push new rating, then sum it up, grab by ID
-// //EDIT
-
-            let ratingArray = []
-
+//TODO: RATINGS array doesnt take in new ratings
             $(document).on("click", ".editRating", function (e) {
                 e.preventDefault();
                 let editID = $(this).data("id");
@@ -167,10 +165,7 @@
                 console.log($(this).data("id"))
                 console.log(document.getElementById($(this).data("id")).value)
 
-
-
-
-
+                let ratingArray = []
                 let newRating = document.getElementById($(this).data("id")).value
 
                 console.log(ratingArray)
@@ -180,28 +175,26 @@
 
                 let addedRating = ratingArray.reduce((a, b) => a + b, 0)
 
-                let averageRating = addedRating/ratingArray.length
+                let averageRating = addedRating / ratingArray.length
 
                 $(this).parent().next(".currentRating").html(averageRating)
 
 
+                console.log("rating array" + ratingArray)
+                console.log("new rating"+newRating)
+                console.log("average" + addedRating / ratingArray.length)
 
-
-                console.log(ratingArray)
-                console.log(newRating)
-                console.log(addedRating/ratingArray.length)
-
-            fetch(`${URL}${editID}`, {
-                method: "PATCH",
-                body: JSON.stringify({
-                    rating: averageRating.toFixed(2),
-                }),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-                .then(response => response.json)
-                .catch(error => console.log(error))
+                fetch(`${URL}${editID}`, {
+                    method: "PATCH",
+                    body: JSON.stringify({
+                        rating: averageRating.toFixed(2),
+                    }),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                    .then(response => response.json)
+                    .catch(error => console.log(error))
 
 
             });
@@ -210,8 +203,7 @@
 //     //this is path to current rating
 //     console.log($(".editOptions :selected").val());
 // })
-
-
+            });
 
 //data fetch
         })
