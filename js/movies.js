@@ -53,13 +53,6 @@
 
                         let movieLayout = ("<h1>" + title + "</h1><br><img src='"+ posterURL +
                             "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href='"+ imdburl + "'target='_blank'>" + imdburl+ "</a></p>")
-
-
-                        // ("<h1>" + title + "</h1><br><img src='"+ posterURL +
-                        // "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href='"+ imdburl + "'target='_blank'>" + imdburl+ "</a></p>")
-                        // document.getElementById("posterImage").innerHTML = movieLayout
-                        // $("#posterImage").append(movieLayout)
-
                         document.getElementById(title).innerHTML = movieLayout;
 
                     })
@@ -67,11 +60,11 @@
 
                 singleMovie(title)
 
-                let searchMovie = document.querySelector("#search");
-
-                let allMovies = data
-
-                console.log(allMovies)
+                // let searchMovie = document.querySelector("#search");
+                //
+                // let allMovies = data
+                //
+                // console.log(allMovies)
 
 
                 // function updateMovies(e) {
@@ -91,18 +84,91 @@
                 //
 
 
-            // });
+                // });
 
 
 
 
 
+                $(document).on("click", ".deleteMovie", function (e) {
+                    e.preventDefault();
+                    console.log(`${URL}` + $(this).data("id"));
+                    let newid = $(this).data("id");
+                    console.log($(this).parent().html());
+                    $(this).parent().parent().parent().fadeOut()
+                    deleteMovie(newid);
+
+                })
+
+
+                function deleteMovie(newId) {
+                    const deleteOptions = {
+                        "method": "DELETE",
+                        "headers": {
+                            "Content-Type": "application/json"
+                        },
+                    };
+                    let deleteURL = `${URL}${newId}`;
+
+                    fetch(deleteURL, deleteOptions)
+                        .then(response => response.json)
+                        .catch(error => console.log(error))
+
+                }
+
+
+//TODO: RATINGS array doesnt take in new ratings
+                $(document).on("click", ".editRating", function (e) {
+                    e.preventDefault();
+                    let editID = $(this).data("id");
+                    // console.log($(this).parent().select.value);
+                    console.log($(this).data("id"))
+                    console.log(document.getElementById($(this).data("id")).value)
+
+                    let ratingArray = []
+                    let newRating = document.getElementById($(this).data("id")).value
+
+                    console.log(ratingArray)
+
+
+                    ratingArray.push(parseInt(newRating))
+
+                    let addedRating = ratingArray.reduce((a, b) => a + b, 0)
+
+                    let averageRating = addedRating / ratingArray.length
+
+                    $(this).parent().next(".currentRating").html(averageRating)
 
 
 
+                    $(this).parent().next(".currentRating").fadeOut()
+
+                    $(this).fadeOut()
 
 
 
+                    fetch(`${URL}${editID}`, {
+                        method: "PATCH",
+                        body: JSON.stringify({
+                            rating: averageRating.toFixed(2),
+                        }),
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    })
+                        .then(response => response.json)
+                        .catch(error => console.log(error))
+
+
+                });
+
+
+
+// $(".editRating").click(function test(){
+//     //this is path to current rating
+//     console.log($(".editOptions :selected").val());
+// })
+            });
 //add movies
             $('.addMovie').click((e) => {
                 e.preventDefault()
@@ -126,15 +192,6 @@
                     .then(response => response.json())
                     .catch(error => console.log(error))
 
-                $('#newPosterImage').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
-
-
-
-                $('.newmovies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
-    //TODO: the newly added movie objects need to be added to data object, so they can be displayed right
-    //             data.push(movieObj) ?!;
-
-                let data;
 
                 function getMoviePoster(movie) {
 
@@ -156,104 +213,12 @@
                             "<br>" +
                             "<p>IMDB Page: <a href='" + imdburl + "' target='_blank'>" + imdburl + "</a></p>")
 
-
-                    $("#newPosterImage").append(movieLayout)
-
-
-                        // document.getElementById("posterImage").innerHTML = movieLayout
-                        // $("#posterImage").append(movieLayout)
-
-                        $(".movies").append(movieLayout)
-
-
+                        $("#newPosterImage").append(movieLayout);
                     })
+
                 }
-
                 getMoviePoster(inputText)
-
             })
-
-
-            $(document).on("click", ".deleteMovie", function (e) {
-                e.preventDefault();
-                console.log("getting here");
-                console.log(`${URL}` + $(this).data("id"));
-                let newid = $(this).data("id");
-                console.log($(this).parent().html());
-                $(this).parent().parent().fadeOut()
-                deleteMovie(newid);
-
-            })
-
-
-            function deleteMovie(newId) {
-                const deleteOptions = {
-                    "method": "DELETE",
-                    "headers": {
-                        "Content-Type": "application/json"
-                    },
-                };
-                let deleteURL = `${URL}${newId}`;
-
-                fetch(deleteURL, deleteOptions)
-                    .then(response => response.json)
-                    .catch(error => console.log(error))
-
-            }
-
-
-//TODO: RATINGS array doesnt take in new ratings
-            $(document).on("click", ".editRating", function (e) {
-                e.preventDefault();
-                let editID = $(this).data("id");
-                // console.log($(this).parent().select.value);
-                console.log($(this).data("id"))
-                console.log(document.getElementById($(this).data("id")).value)
-
-                let ratingArray = []
-                let newRating = document.getElementById($(this).data("id")).value
-
-                console.log(ratingArray)
-
-
-                ratingArray.push(parseInt(newRating))
-
-                let addedRating = ratingArray.reduce((a, b) => a + b, 0)
-
-                let averageRating = addedRating / ratingArray.length
-
-                $(this).parent().next(".currentRating").html(averageRating)
-
-
-
-                $(this).parent().next(".currentRating").fadeOut()
-
-                $(this).fadeOut()
-
-
-
-                fetch(`${URL}${editID}`, {
-                    method: "PATCH",
-                    body: JSON.stringify({
-                        rating: averageRating.toFixed(2),
-                    }),
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-                    .then(response => response.json)
-                    .catch(error => console.log(error))
-
-
-            });
-
-
-
-// $(".editRating").click(function test(){
-//     //this is path to current rating
-//     console.log($(".editOptions :selected").val());
-// })
-            });
 
 //data fetch
         })
