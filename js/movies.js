@@ -50,7 +50,10 @@
                         let year = data.Search[0].Year;
                         let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
                         let posterURL = data.Search[0].Poster;
-                        let movieLayout = ("<img class='card-img-top' src='" + posterURL + "'</>")
+
+                        let movieLayout = ("<h1>" + title + "</h1><br><img src='"+ posterURL +
+                            "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href='"+ imdburl + "'target='_blank'>" + imdburl+ "</a></p>")
+
 
                         // ("<h1>" + title + "</h1><br><img src='"+ posterURL +
                         // "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href='"+ imdburl + "'target='_blank'>" + imdburl+ "</a></p>")
@@ -180,9 +183,12 @@
                 $(this).parent().next(".currentRating").html(averageRating)
 
 
-                console.log("rating array" + ratingArray)
-                console.log("new rating"+newRating)
-                console.log("average" + addedRating / ratingArray.length)
+
+                $(this).parent().next(".currentRating").fadeOut()
+
+                $(this).fadeOut()
+
+
 
                 fetch(`${URL}${editID}`, {
                     method: "PATCH",
