@@ -180,7 +180,7 @@
                 console.log(`${URL}` + $(this).data("id"));
                 let newid = $(this).data("id");
                 console.log($(this).parent().html());
-                $(this).parent().fadeOut()
+                $(this).parent().parent().fadeOut()
                 deleteMovie(newid);
 
             })
