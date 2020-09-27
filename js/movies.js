@@ -50,7 +50,10 @@
                         let year = data.Search[0].Year;
                         let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
                         let posterURL = data.Search[0].Poster;
-                        let movieLayout = ("<img class='card-img-top' src='" + posterURL + "'</>")
+
+                        let movieLayout = ("<h1>" + title + "</h1><br><img src='"+ posterURL +
+                            "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href='"+ imdburl + "'target='_blank'>" + imdburl+ "</a></p>")
+
 
                         // ("<h1>" + title + "</h1><br><img src='"+ posterURL +
                         // "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href='"+ imdburl + "'target='_blank'>" + imdburl+ "</a></p>")
@@ -63,6 +66,38 @@
                 }
 
                 singleMovie(title)
+
+                let searchMovie = document.querySelector("#search");
+
+                let allMovies = data
+
+                console.log(allMovies)
+
+
+                // function updateMovies(e) {
+                //     e.preventDefault(); // don't submit the form, we just want to update the data
+                //     var searchedName = searchMovie.value.toLowerCase()
+                //     var filteredMovies = [];
+                //     allMovies.forEach(function(movie) {
+                //         if (movie.title.toLowerCase().includes(searchedName)){
+                //             filteredMovies.push(movie);
+                //             console.log(data.id)
+                //         }
+                //     });
+                //     document.getElementsByClassName(movies).innerHTML = updateMovies(filteredMovies);
+                // }
+                //
+                // searchMovie.addEventListener('input', updateMovies);
+                //
+
+
+            // });
+
+
+
+
+
+
 
 
 
@@ -90,9 +125,15 @@
                 fetch(URL, options)
                     .then(response => response.json())
                     .catch(error => console.log(error))
+
+                $('#newPosterImage').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
+
+
+
                 $('.newmovies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
     //TODO: the newly added movie objects need to be added to data object, so they can be displayed right
     //             data.push(movieObj) ?!;
+
                 let data;
 
                 function getMoviePoster(movie) {
@@ -116,10 +157,14 @@
                             "<p>IMDB Page: <a href='" + imdburl + "' target='_blank'>" + imdburl + "</a></p>")
 
 
+                    $("#newPosterImage").append(movieLayout)
+
+
                         // document.getElementById("posterImage").innerHTML = movieLayout
                         // $("#posterImage").append(movieLayout)
 
                         $(".movies").append(movieLayout)
+
 
                     })
                 }
@@ -135,7 +180,7 @@
                 console.log(`${URL}` + $(this).data("id"));
                 let newid = $(this).data("id");
                 console.log($(this).parent().html());
-                $(this).parent().fadeOut()
+                $(this).parent().parent().fadeOut()
                 deleteMovie(newid);
 
             })
@@ -180,9 +225,12 @@
                 $(this).parent().next(".currentRating").html(averageRating)
 
 
-                console.log("rating array" + ratingArray)
-                console.log("new rating"+newRating)
-                console.log("average" + addedRating / ratingArray.length)
+
+                $(this).parent().next(".currentRating").fadeOut()
+
+                $(this).fadeOut()
+
+
 
                 fetch(`${URL}${editID}`, {
                     method: "PATCH",
@@ -200,11 +248,6 @@
             });
 
 
-                let searchMovie = document.querySelector("#search");
-                function updateMovies(e){
-                    e.preventDefault();
-                    let searchedName=  searchMovie
-                }
 
 // $(".editRating").click(function test(){
 //     //this is path to current rating
