@@ -249,8 +249,6 @@
 
 
 
-
-
 // $(".editRating").click(function test(){
 //     //this is path to current rating
 //     console.log($(".editOptions :selected").val());
