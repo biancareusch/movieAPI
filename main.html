@@ -3,33 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <title>MoviesAPI</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/a08077b390.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="stylesheet.css">
 </head>
-<body onload="loadingScreen()">
-<div id="loader">Loading...</div>
+<body>
+<!--NAVBAR-->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <img alt="Brand" class="logo" src="MOVIES.png">
+            </a>
+            <form class="navbar-form">
+                <div class="form-group">
+                    <input class="addInput form-control" id="addInput" placeholder="Add Movie">
+                </div>
+                <div class="inputGroup">
+                <label class="addRatingLabel" for="addRating">Rating:</label>
+                <select class="addRating" id="addRating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <button class="addMovie topbtn btn btn-default navbar-btn" data-toggle="button" type="submit">Add Movie
+                </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</nav>
+</div>
+<!--MAIN-CONTENT-->
 
-<div id="page" class="container">
-<div class="movies">MOVIES</div>
+<div class="container-fluid">
+<!--    <div class="col-2 d-none">-->
+<!--        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseDes"-->
+<!--                aria-expanded="false" aria-controls="collapseExample">-->
+<!--            <i class="fas fa-bullhorn"></i>-->
+<!--        </button>-->
+<!--        <div class="collapse" id="collapseDes">-->
+<!--            <div class="well">-->
+<!--                Welcome to our website, rate movies you've watched before or see what others have rated on the movies-->
+<!--                you-->
+<!--                want to watch.-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 
-<input class="addInput" id="addInput" placeholder="Add Movie">
-<select class="addRating">
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-</select>
-<button class="addMovie" type="submit">Add Movie</button>
+    <div class="row">
+        <div class="col-12">
+            <label class="labelID" id="newMovieLabel" for="newMovies">New Movies</label>
+            <section id=newMovies class="newmovies">
+
+                <div id="posterImage"></div>
+            </section>
+
+            <label class="labelID" for="allMovies">All Movies</label>
+            <section id=allMovies class="All movies">
+
+<!--                <div class="movies"></div>-->
+
+                <div id="posterImage"></div>
+
+            </section>
+        </div>
+    </div>
+
 </div>
 
 
-
-<script>
-function loadingScreen (){
-    document.getElementById("loader").style.display = "none";
-    document.getElementById("page").style.display = "block";
-}
-</script>
-<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
-<script src="js/movies.js" ></script>
+<script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script src="js/movies.js"></script>
 </body>
 </html>
