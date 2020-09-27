@@ -199,6 +199,13 @@
 
             });
 
+
+                let searchMovie = document.querySelector("#search");
+                function updateMovies(e){
+                    e.preventDefault();
+                    let searchedName=  searchMovie
+                }
+
 // $(".editRating").click(function test(){
 //     //this is path to current rating
 //     console.log($(".editOptions :selected").val());
