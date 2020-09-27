@@ -18,7 +18,7 @@
                             <div class="card-body">
                                 <span class='card-img-top' id="${title}">${title}</span>
                                 <br>
-                                <span class="currentRating mt-10" style="font-size: 2em;"> Rating:${rating}</span>
+                                <span class="currentRating mt-10" style="font-size: 2em;"> Rating:${rating} /5</span>
                                 <br>
                                 <div class="submitDiv">
                                      <select class="editOptions" id=${id}>
@@ -42,20 +42,22 @@
                 function singleMovie(title) {
 
 
-                    $.get("http://www.omdbapi.com/?s=" + title + "&apikey=996b9c18", function (rawdata) {
+                    $.get("http://www.omdbapi.com/?t=" + title + "&apikey=996b9c18", function (rawdata) {
                         let rawString = JSON.stringify(rawdata)
 
                         data = JSON.parse(rawString)
-                        let title = data.Search[0].Title;
-                        let year = data.Search[0].Year;
-                        let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
-                        let posterURL = data.Search[0].Poster;
-
+                        let genre = data.Genre;
+                        let title = data.Title;
+                        let year = data.Year;
+                        let imdburl = "https://www.imdb.com/title/" + data.imdbID + "/";
+                        let posterURL = data.Poster;
+                        console.log(data);
                         let movieLayout = ("<h1>" + title + "</h1>" +
                             "<br>" +
                             "<a href='" + imdburl + "' target='_blank' rel='noopener noreferrer'><img class='card-img-top'src='" + posterURL + "'></a>" +
                             "<br>" +
-                            "<p>Year Released:" + year + "</p>" +
+                            "<p>Genre: " + genre +"</p>"+
+                            "<p>Released:" + year + "</p>" +
                             "<br>")
                         document.getElementById(title).innerHTML = movieLayout;
 
@@ -162,10 +164,7 @@
                 });
 
 
-// $(".editRating").click(function test(){
-//     //this is path to current rating
-//     console.log($(".editOptions :selected").val());
-// })
+
             });
 //add movies
             $('.addMovie').click((e) => {
