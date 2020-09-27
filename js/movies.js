@@ -59,11 +59,32 @@
 
                 singleMovie(title)
 
+                let searchMovie = document.querySelector("#search");
+
+                let allMovies = data
+
+                console.log(allMovies)
 
 
+                function updateMovies(e) {
+                    e.preventDefault(); // don't submit the form, we just want to update the data
+                    var searchedName = searchMovie.value.toLowerCase()
+                    var filteredMovies = [];
+                    allMovies.forEach(function(movie) {
+                        if (movie.title.toLowerCase().includes(searchedName)){
+                            filteredMovies.push(movie);
+                            console.log(data.id)
+                        }
+                    });
+                    document.getElementsByClassName(movies).innerHTML = updateMovies(filteredMovies);
+                }
+
+                searchMovie.addEventListener('input', updateMovies);
 
 
             });
+
+
 
 
 
@@ -208,10 +229,7 @@
 
             });
 
-// $(".editRating").click(function test(){
-//     //this is path to current rating
-//     console.log($(".editOptions :selected").val());
-// })
+
 
 
 
