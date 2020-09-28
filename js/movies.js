@@ -13,13 +13,13 @@
                 let id = movie.id;
                 let title = movie.title;
                 let rating = movie.rating;
-
+                let rateArray = []
                 html =
                     `<div class="card movieDiv">
                             <div class="card-body">
                                 <span class='card-img-top' id="${title}">${title}</span>
                                 <br>
-                                <span class="currentRating mt-10" style="font-size: 2em;"> Rating:${rating}</span>
+                                <span class="currentRating mt-10" style="font-size: 2em;"> Rating: ${rating}</span>
                                 <br>
                                 <div class="submitDiv">
                                      <select class="editOptions" id=${id}>
@@ -40,9 +40,17 @@
 
 
                fetch(`${URL}${id}`)
-                    .then(response => response.json()
-                    .then(data => console.log(data.rating)))
+                    .then(response => response.json())
+                    .then(data => {rateArray.push(data.rating); console.log(rateArray) })
 
+
+
+
+
+
+
+
+                // console.log(rateArray)
 
 
 
@@ -188,7 +196,7 @@
                             "<div class='card movieDiv'>"+
                             "<div class='card-body'>"+
 
-                            "<span class='currentRating mt-10' style='font-size: 2em;'> Rating:${rating}</span>" +
+                            "<span class='currentRating mt-10' style='font-size: 2em;'> Rating: ${rating}</span>" +
                             "<h1>" + title + "</h1>" +
                             "<br>" +
                             "<a href='" + imdburl + "' target='_blank' rel='noopener noreferrer'><img class='card-img-top'src='" + posterURL + "'></a>" +
@@ -248,8 +256,7 @@
                     .catch(error => console.log(error))
 
 
-
-
+                $(this).parent().next(".currentRating").html = ratingArray
 
 
                 $(this).parent().next(".currentRating").fadeOut()
