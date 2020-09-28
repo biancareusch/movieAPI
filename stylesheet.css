@@ -3,12 +3,12 @@
 body {
     display: flex;
     flex-direction: row;
-    margin: 3vw;
-    padding-top: 25vh;
+    margin: 0;
     font-family: 'Dosis', sans-serif;
     background-image: url("aED1AMU-theater-backgrounds.jpg");
     text-align: center;
     flex-flow: row wrap;
+    color:white;
 }
 
 .card {
@@ -17,16 +17,10 @@ body {
     border-radius: 5px;
     margin: 1vw;
 }
-.navbar-form{
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-}
 
 .labelID {
     font-size: 4vh;
     color: white;
-    text-align: center;
 }
 
 img {
@@ -43,28 +37,38 @@ input {
 
 .addRating {
     width: 30vw;
+   height:2em;
+    border-radius: 4px;
 }
 
-.form-group {
-    margin-top: 9vh;
+.navbar {
+    background: rgba(255, 255, 255, 0.24);
+    width: 100vw;
+    border-bottom: solid 5px black;
 }
 
-.logo {
+.navContainer {
+    justify-content: center !important;
+    align-items: center;
+}
+
+.navbar-form {
+    margin-top: 1.5rem;
+}
+a{
+    color: #bd2130;
+}
+.navbar-brand img {
     width: 40vw;
-    box-shadow: none;
-    position: absolute;
-    left: 50%;
-    margin-left: -20vw;
+    max-width: 300px;
+    box-shadow: 1vw 1vw 0.5vw;
+    background: #ffffffe3;
+    border-radius: 4px;
 }
 
-.inputGroup {
-    display: flex;
-    justify-content: space-around;
-    align-items: baseline;
-}
 
-.movies {
-    color: white;
+
+.movies, .newMovies {
     display: flex;
     flex-direction: row;
     align-items: baseline;
@@ -72,78 +76,21 @@ input {
     justify-content: center;
 }
 
-#newMovieLabel {
-    display: none;
-}
-
-button, select {
-    color: black;
-}
-
-/*Small devices (landscape phones, 576px and up)*/
-@media (min-width: 576px) {
-    .body {
-        padding-top: 20vh;
-    }
-
-    .logo {
-        width: 40vw;
-        position: absolute;
-        left: 50%;
-        margin-left: -20vw;
-        margin-top: -1vh;
-    }
-
-    #newMovieLabel {
-        display: none;
-    }
-
-}
-
-/*Medium devices (tablets, 768px and up)*/
-@media (min-width: 768px) {
-    .navbar-form{
-        display:flex;
-        justify-content: space-between;
-        width:90vw;
-    }
-    .logo {
-        width: 40vw;
-    }
-    .addRating{
-        width: 7vw;
-    }
+.addMovie{
+    height:2em;
+    border-radius: 4px;
+    background-color: gray;
+    line-height: 0.5;
 }
 
 /*Large devices (desktops, 992px and up)*/
 @media (min-width: 992px) {
-    body {
-        display: flex;
-        flex-direction: row;
-        margin: 3vw;
-        padding-top: 13vh;
-        font-family: 'Dosis', sans-serif;
-        background-image: url("aED1AMU-theater-backgrounds.jpg");
-    }
-
     img {
         width: 17vw;
     }
 
-    .logo {
-        width: 9vw;
-    }
-
     .movies {
         width: 90vw;
-    }
-
-    .labelID {
-        font-size: 5vh;
-    }
-
-    #newMovieLabel {
-        display: none;
     }
 
     .card {
