@@ -51,8 +51,12 @@
                         let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
                         let posterURL = data.Search[0].Poster;
 
-                        let movieLayout = ("<h1>" + title + "</h1><br><img src='"+ posterURL +
-                            "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href='"+ imdburl + "'target='_blank'>" + imdburl+ "</a></p>")
+                        let movieLayout = ("<h1>" + title + "</h1>" +
+                            "<br>" +
+                            "<a href='" + imdburl + "' target='_blank' rel='noopener noreferrer'><img class='card-img-top'src='" + posterURL + "'></a>" +
+                            "<br>" +
+                            "<p>Year Released:" + year + "</p>" +
+                            "<br>")
                         document.getElementById(title).innerHTML = movieLayout;
 
                     })
@@ -85,9 +89,6 @@
 
 
                 // });
-
-
-
 
 
                 $(document).on("click", ".deleteMovie", function (e) {
@@ -140,11 +141,9 @@
                     $(this).parent().next(".currentRating").html(averageRating)
 
 
-
                     $(this).parent().next(".currentRating").fadeOut()
 
                     $(this).fadeOut()
-
 
 
                     fetch(`${URL}${editID}`, {
@@ -161,7 +160,6 @@
 
 
                 });
-
 
 
 // $(".editRating").click(function test(){
@@ -204,22 +202,30 @@
                         let year = data.Search[0].Year;
                         let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
                         let posterURL = data.Search[0].Poster;
-                        let movieLayout = (
-                            "<h1>" + title + "</h1>" +
-                            "<br>" +
-                            "<img class='card-img-top'src='" + posterURL + "'</>" +
-                            "<br>" +
-                            "<p>Year Released:" + year + "</p>" +
-                            "<br>" +
-                            "<p>IMDB Page: <a href='" + imdburl + "' target='_blank'>" + imdburl + "</a></p>")
-
-                        $("#newPosterImage").append(movieLayout);
+                        // let movieLayout = (
+                        //     "<h1>" + title + "</h1>" +
+                        //     "<br>" +
+                        //     "<a href=" + imdburl + " target='_blank' rel='noopener noreferrer'><img class='card-img-top'src='" + posterURL + "'></a>" +
+                        //     "<br>" +
+                        //     "<p>Year Released:" + year + "</p>" +
+                        //     "<br>" )
+                            // "<p>IMDB Page: <a href='" + imdburl + "' target='_blank'>" + imdburl + "</a></p>")
+                        // $(".newMovies").append(movieLayout);
                     })
 
                 }
+
                 getMoviePoster(inputText)
             })
 
+
+            // let element = document.getElementById("labelID")
+            // function hasDisplayNone(element) {
+            //     return (element.classList.value.indexOf("d-none") !== -1);
+            // }
+            // if (hasDisplayNone(element)) {
+            //     element.classList.remove("d-none");
+            // }
 //data fetch
         })
 // IIFE don't touch
