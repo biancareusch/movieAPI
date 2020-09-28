@@ -202,15 +202,24 @@
                         let year = data.Search[0].Year;
                         let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
                         let posterURL = data.Search[0].Poster;
-                        // let movieLayout = (
-                        //     "<h1>" + title + "</h1>" +
-                        //     "<br>" +
-                        //     "<a href=" + imdburl + " target='_blank' rel='noopener noreferrer'><img class='card-img-top'src='" + posterURL + "'></a>" +
-                        //     "<br>" +
-                        //     "<p>Year Released:" + year + "</p>" +
-                        //     "<br>" )
-                            // "<p>IMDB Page: <a href='" + imdburl + "' target='_blank'>" + imdburl + "</a></p>")
-                        // $(".newMovies").append(movieLayout);
+
+                        let movieLayout = (
+
+                            "<div class='card movieDiv'>"+
+                            "<div class='card-body'>"+
+
+                            // "<span class='currentRating mt-10' style='font-size: 2em;'> Rating:${rating}</span>" +
+                            "<h1>" + title + "</h1>" +
+                            "<br>" +
+                            "<a href='" + imdburl + "' target='_blank' rel='noopener noreferrer'><img class='card-img-top'src='" + posterURL + "'></a>" +
+                            "<br>" +
+                            "<p>Year Released:" + year + "</p>" +
+                            "<br>" +
+                            "</div>"+
+                          "</div>"
+                            )
+
+                        $(".newMovies").append(movieLayout);
                     })
 
                 }
