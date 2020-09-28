@@ -16,12 +16,25 @@
                 let rating = movie.rating;
                 let rateArray = []
 
+                let startingRate = `${rating}`
+                let lengthRate = `${rating.length}`
+
+                let toNumbers = startingRate.split(",").map(function (item){
+                    return parseInt(item, 10)
+                })
+
+
+
+                let addedRating = toNumbers.reduce((a, b) => a + b, 0)
+
+                let finalRating = addedRating/toNumbers.length
+
                 html =
                     `<div class="card movieDiv">
                             <div class="card-body">
                                 <span class='card-img-top' id="${title}">${title}</span>
                                 <br>
-                                <span class="currentRating mt-10" style="font-size: 2em;"> Rating: ${rating}</span>
+                                <span class="currentRating mt-10" style="font-size: 2em;"> Rating: ${finalRating} </span>
                                 <br>
                                 <div class="submitDiv">
                                      <select class="editOptions" id=${id}>
@@ -40,23 +53,18 @@
                 $('.movies').append(html);
 
 
-               fetch(`${URL}${id}`)
+
+
+
+                // console.log(addedRating);
+
+
+
+                fetch(`${URL}${id}`)
                     .then(response => response.json())
-                    .then(data => {rateArray.push(data.rating); console.log(rateArray) })
+                    .then(data => {rateArray.push(data.rating); console.log(rateArray)
 
-
-
-
-
-
-
-
-                // console.log(rateArray)
-
-
-
-
-
+                    })
 
 
 
@@ -190,13 +198,14 @@
                         let year = data.Search[0].Year;
                         let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
                         let posterURL = data.Search[0].Poster;
-
+                        let inputRating = $(".addRating").val();
+                        console.log(inputRating)
                         let movieLayout = (
 
                             "<div class='card movieDiv'>"+
                             "<div class='card-body'>"+
 
-                            "<span class='currentRating mt-10' style='font-size: 2em;'> Rating: ${rating}</span>" +
+                            "<span class='currentRating mt-10' style='font-size: 2em;'> Added!</span>" +
                             "<h1>" + title + "</h1>" +
                             "<br>" +
                             "<a href='" + imdburl + "' target='_blank' rel='noopener noreferrer'><img class='card-img-top'src='" + posterURL + "'></a>" +
@@ -235,6 +244,8 @@
                 let ratingArray = []
 
 
+
+
                 fetch(`${URL}${editID}`)
                     .then(response => response.json())
                     .then(data => {rateArray.push(data.rating);
@@ -246,6 +257,7 @@
                         body: JSON.stringify({
                             rating: rateArray
                         }),
+
                     };
 
                         fetch(`${URL}${editID}`, options)
@@ -258,7 +270,7 @@
                 console.log(rateArray)
 
 
-                // let addedRating = ratingArray.reduce((a, b) => a + b, 0)
+
 
                 // let averageRating = addedRating / ratingArray.length
 
