@@ -301,9 +301,28 @@
 
                 $(this).fadeOut()
 
+                function pageLoad (){
+                    location.reload()
+                }
 
+                setTimeout(function (){
+
+                    location.reload()
+
+                },500)
 
             });
+
+
+
+
+            // $(".addMovie").click(function (){
+            //     location.reload()
+            // });
+
+            // $(".editRating").click(function (){
+            //    $("document.getElementById($(this).data("id"))")
+            // });
 
 
             // let element = document.getElementById("labelID")
