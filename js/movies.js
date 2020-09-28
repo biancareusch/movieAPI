@@ -1,5 +1,6 @@
 (function () {
     const URL = "https://capable-zenith-layer.glitch.me/movies/";
+
 //fetch all movies on server
 
 
@@ -13,12 +14,27 @@
                 let id = movie.id;
                 let title = movie.title;
                 let rating = movie.rating;
+                let rateArray = []
+
+                let startingRate = `${rating}`
+                let lengthRate = `${rating.length}`
+
+                let toNumbers = startingRate.split(",").map(function (item){
+                    return parseInt(item, 10)
+                })
+
+
+
+                let addedRating = toNumbers.reduce((a, b) => a + b, 0)
+
+                let finalRating = addedRating/toNumbers.length
+
                 html =
                     `<div class="card movieDiv">
                             <div class="card-body">
                                 <span class='card-img-top' id="${title}">${title}</span>
                                 <br>
-                                <span class="currentRating mt-10" style="font-size: 2em;"> Rating:${rating}</span>
+                                <span class="currentRating mt-10" style="font-size: 2em;"> Rating: ${finalRating.toFixed(2)} </span>
                                 <br>
                                 <div class="submitDiv">
                                      <select class="editOptions" id=${id}>
@@ -37,6 +53,23 @@
                 $('.movies').append(html);
 
 
+
+
+
+                // console.log(addedRating);
+
+
+
+                fetch(`${URL}${id}`)
+                    .then(response => response.json())
+                    .then(data => {rateArray.push(data.rating); console.log(rateArray)
+
+                    })
+
+
+
+
+
                 // function that gets just the image of a movie
 
                 function singleMovie(title) {
@@ -45,17 +78,19 @@
                     $.get("http://www.omdbapi.com/?s=" + title + "&apikey=996b9c18", function (rawdata) {
                         let rawString = JSON.stringify(rawdata)
 
+
                         data = JSON.parse(rawString)
                         let title = data.Search[0].Title;
                         let year = data.Search[0].Year;
                         let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
                         let posterURL = data.Search[0].Poster;
-                        let movieLayout = ("<img class='card-img-top' src='" + posterURL + "'</>")
 
-                        // ("<h1>" + title + "</h1><br><img src='"+ posterURL +
-                        // "'</><br><p>Year Released:" + year + "</p><br><p>IMDB Page: <a href='"+ imdburl + "'target='_blank'>" + imdburl+ "</a></p>")
-                        // document.getElementById("posterImage").innerHTML = movieLayout
-                        // $("#posterImage").append(movieLayout)
+                        let movieLayout = ("<h1>" + title + "</h1>" +
+                            "<br>" +
+                            "<a href='" + imdburl + "' target='_blank' rel='noopener noreferrer'><img class='card-img-top'src='" + posterURL + "'></a>" +
+                            "<br>" +
+                            "<p>Year Released:" + year + "</p>" +
+                            "<br>")
 
                         document.getElementById(title).innerHTML = movieLayout;
 
@@ -64,10 +99,70 @@
 
                 singleMovie(title)
 
+                // let searchMovie = document.querySelector("#search");
+                //
+                // let allMovies = data
+                //
+                // console.log(allMovies)
+
+
+                // function updateMovies(e) {
+                //     e.preventDefault(); // don't submit the form, we just want to update the data
+                //     var searchedName = searchMovie.value.toLowerCase()
+                //     var filteredMovies = [];
+                //     allMovies.forEach(function(movie) {
+                //         if (movie.title.toLowerCase().includes(searchedName)){
+                //             filteredMovies.push(movie);
+                //             console.log(data.id)
+                //         }
+                //     });
+                //     document.getElementsByClassName(movies).innerHTML = updateMovies(filteredMovies);
+                // }
+                //
+                // searchMovie.addEventListener('input', updateMovies);
+                //
+
+
+                // });
+
+
+                $(document).on("click", ".deleteMovie", function (e) {
+                    e.preventDefault();
+                    console.log(`${URL}` + $(this).data("id"));
+                    let newid = $(this).data("id");
+                    console.log($(this).parent().html());
+                    $(this).parent().parent().parent().fadeOut()
+                    deleteMovie(newid);
+
+                })
+
+
+                function deleteMovie(newId) {
+                    const deleteOptions = {
+                        "method": "DELETE",
+                        "headers": {
+                            "Content-Type": "application/json"
+                        },
+                    };
+                    let deleteURL = `${URL}${newId}`;
+
+                    fetch(deleteURL, deleteOptions)
+                        .then(response => response.json)
+                        .catch(error => console.log(error))
+
+                }
 
 
 
 
+
+
+
+// $(".editRating").click(function test(){
+//     //this is path to current rating
+//     console.log($(".editOptions :selected").val());
+// })
+            });
 //add movies
             $('.addMovie').click((e) => {
                 e.preventDefault()
@@ -90,10 +185,7 @@
                 fetch(URL, options)
                     .then(response => response.json())
                     .catch(error => console.log(error))
-                $('.newmovies').append("<div>" + $("#addInput").val() + " " + $(".addRating").val() + `<button  type="submit" class='deleteMovie'>X</button>` + "</div>");
-    //TODO: the newly added movie objects need to be added to data object, so they can be displayed right
-    //             data.push(movieObj) ?!;
-                let data;
+
 
                 function getMoviePoster(movie) {
 
@@ -106,105 +198,121 @@
                         let year = data.Search[0].Year;
                         let imdburl = "https://www.imdb.com/title/" + data.Search[0].imdbID + "/";
                         let posterURL = data.Search[0].Poster;
+                        let inputRating = $(".addRating").val();
+                        console.log(inputRating)
                         let movieLayout = (
+
+                            "<div class='card movieDiv'>"+
+                            "<div class='card-body'>"+
+
+                            "<span class='currentRating mt-10' style='font-size: 2em;'> Added!</span>" +
                             "<h1>" + title + "</h1>" +
                             "<br>" +
-                            "<img class='card-img-top'src='" + posterURL + "'</>" +
+                            "<a href='" + imdburl + "' target='_blank' rel='noopener noreferrer'><img class='card-img-top'src='" + posterURL + "'></a>" +
                             "<br>" +
                             "<p>Year Released:" + year + "</p>" +
                             "<br>" +
-                            "<p>IMDB Page: <a href='" + imdburl + "' target='_blank'>" + imdburl + "</a></p>")
+                            "</div>"+
+                          "</div>"
+                            )
 
-
-                        // document.getElementById("posterImage").innerHTML = movieLayout
-                        // $("#posterImage").append(movieLayout)
-
-                        $(".movies").append(movieLayout)
-
+                        $(".newMovies").append(movieLayout);
                     })
+
                 }
 
                 getMoviePoster(inputText)
-
             })
 
-
-            $(document).on("click", ".deleteMovie", function (e) {
-                e.preventDefault();
-                console.log("getting here");
-                console.log(`${URL}` + $(this).data("id"));
-                let newid = $(this).data("id");
-                console.log($(this).parent().html());
-                $(this).parent().fadeOut()
-                deleteMovie(newid);
-
-            })
+            //TODO: RATINGS array doesnt take in new ratings
 
 
-            function deleteMovie(newId) {
-                const deleteOptions = {
-                    "method": "DELETE",
-                    "headers": {
-                        "Content-Type": "application/json"
-                    },
-                };
-                let deleteURL = `${URL}${newId}`;
 
-                fetch(deleteURL, deleteOptions)
-                    .then(response => response.json)
-                    .catch(error => console.log(error))
-
-            }
-
-
-//TODO: RATINGS array doesnt take in new ratings
             $(document).on("click", ".editRating", function (e) {
                 e.preventDefault();
+
                 let editID = $(this).data("id");
                 // console.log($(this).parent().select.value);
-                console.log($(this).data("id"))
-                console.log(document.getElementById($(this).data("id")).value)
+                // console.log($(this).data("id"))
+                // console.log(document.getElementById($(this).data("id")).value)
 
-                let ratingArray = []
+
                 let newRating = document.getElementById($(this).data("id")).value
 
-                console.log(ratingArray)
+                let rateArray = []
+
+                let ratingArray = []
 
 
-                ratingArray.push(parseInt(newRating))
-
-                let addedRating = ratingArray.reduce((a, b) => a + b, 0)
-
-                let averageRating = addedRating / ratingArray.length
-
-                $(this).parent().next(".currentRating").html(averageRating)
 
 
-                console.log("rating array" + ratingArray)
-                console.log("new rating"+newRating)
-                console.log("average" + addedRating / ratingArray.length)
+                fetch(`${URL}${editID}`)
+                    .then(response => response.json())
+                    .then(data => {rateArray.push(data.rating);
+                    let options = {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            rating: rateArray
+                        }),
 
-                fetch(`${URL}${editID}`, {
-                    method: "PATCH",
-                    body: JSON.stringify({
-                        rating: averageRating.toFixed(2),
-                    }),
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-                    .then(response => response.json)
-                    .catch(error => console.log(error))
+                    };
+
+                        fetch(`${URL}${editID}`, options)
+                            .then(response => response.json())
+                            .catch(error => console.log(error))
+                    })
+
+                rateArray.push(newRating)
+
+                console.log(rateArray)
+
+
+
+
+                // let averageRating = addedRating / ratingArray.length
+
+                $(this).parent().next(".currentRating").fadeOut()
+
+
+
+
+                // let optionPost = {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //     },
+                //     body: JSON.stringify({
+                //         rating: rateArray
+                //     }),
+                // };
+                //
+                // fetch(URL, optionPost)
+                //     .then(response => response.json())
+                //     .catch(error => console.log(error))
+
+
+                $(this).parent().next(".currentRating").html = ratingArray
+
+
+                $(this).parent().next(".currentRating").fadeOut()
+
+                $(this).fadeOut()
+
 
 
             });
 
-// $(".editRating").click(function test(){
-//     //this is path to current rating
-//     console.log($(".editOptions :selected").val());
-// })
-            });
 
+            // let element = document.getElementById("labelID")
+            // function hasDisplayNone(element) {
+            //     return (element.classList.value.indexOf("d-none") !== -1);
+            // }
+            // if (hasDisplayNone(element)) {
+            //     element.classList.remove("d-none");
+            // }
 //data fetch
         })
 // IIFE don't touch
