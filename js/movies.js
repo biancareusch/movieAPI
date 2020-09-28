@@ -1,5 +1,6 @@
 (function () {
     const URL = "https://capable-zenith-layer.glitch.me/movies/";
+
 //fetch all movies on server
 
 
@@ -14,6 +15,7 @@
                 let title = movie.title;
                 let rating = movie.rating;
                 let rateArray = []
+
                 html =
                     `<div class="card movieDiv">
                             <div class="card-body">
@@ -36,7 +38,6 @@
                           </div>
                     </div>`
                 $('.movies').append(html);
-
 
 
                fetch(`${URL}${id}`)
@@ -230,7 +231,13 @@
 
                 let ratingArray = []
 
-                ratingArray.push(newRating)
+                let rateArray = []
+
+                fetch(`${URL}${editID}`)
+                    .then(response => response.json())
+                    .then(data => {rateArray.push(data.rating); console.log(rateArray) })
+
+                rateArray.push(newRating)
 
                 console.log(ratingArray)
 
@@ -247,7 +254,7 @@
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        rating: ratingArray
+                        rating: rateArray
                     }),
                 };
 
