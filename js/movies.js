@@ -34,7 +34,7 @@
                             <div class="card-body">
                                 <span class='card-img-top' id="${title}">${title}</span>
                                 <br>
-                                <span class="currentRating mt-10" style="font-size: 2em;"> Rating: ${finalRating} </span>
+                                <span class="currentRating mt-10" style="font-size: 2em;"> Rating: ${finalRating.toFixed(2)} </span>
                                 <br>
                                 <div class="submitDiv">
                                      <select class="editOptions" id=${id}>
