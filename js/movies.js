@@ -2,7 +2,9 @@
     const URL = "https://capable-zenith-layer.glitch.me/movies/";
 
 //fetch all movies on server
-
+    $("refreshBtn").click(function (){
+        location.reload()
+    })
 
     fetch(URL)
         .then(response => response.json())
@@ -304,7 +306,9 @@
 
 
             });
-
+            $("refreshBtn").click(function (){
+                location.reload()
+            })
 
             // let element = document.getElementById("labelID")
             // function hasDisplayNone(element) {
