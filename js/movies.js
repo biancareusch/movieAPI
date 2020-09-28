@@ -83,9 +83,8 @@
                             "<br>" +
                             "<p>Year Released:" + year + "</p>" +
                             "<br>")
+
                         document.getElementById(title).innerHTML = movieLayout;
-
-
 
                     })
                 }
@@ -218,6 +217,8 @@
 
             //TODO: RATINGS array doesnt take in new ratings
 
+
+
             $(document).on("click", ".editRating", function (e) {
                 e.preventDefault();
 
@@ -229,17 +230,32 @@
 
                 let newRating = document.getElementById($(this).data("id")).value
 
+                let rateArray = []
+
                 let ratingArray = []
 
-                let rateArray = []
 
                 fetch(`${URL}${editID}`)
                     .then(response => response.json())
-                    .then(data => {rateArray.push(data.rating); console.log(rateArray) })
+                    .then(data => {rateArray.push(data.rating);
+                    let options = {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            rating: rateArray
+                        }),
+                    };
+
+                        fetch(`${URL}${editID}`, options)
+                            .then(response => response.json())
+                            .catch(error => console.log(error))
+                    })
 
                 rateArray.push(newRating)
 
-                console.log(ratingArray)
+                console.log(rateArray)
 
 
                 // let addedRating = ratingArray.reduce((a, b) => a + b, 0)
@@ -248,19 +264,22 @@
 
                 $(this).parent().next(".currentRating").fadeOut()
 
-                let options = {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        rating: rateArray
-                    }),
-                };
 
-                fetch(`${URL}${editID}`, options)
-                    .then(response => response.json())
-                    .catch(error => console.log(error))
+
+
+                // let optionPost = {
+                //     method: 'POST',
+                //     headers: {
+                //         'Content-Type': 'application/json',
+                //     },
+                //     body: JSON.stringify({
+                //         rating: rateArray
+                //     }),
+                // };
+                //
+                // fetch(URL, optionPost)
+                //     .then(response => response.json())
+                //     .catch(error => console.log(error))
 
 
                 $(this).parent().next(".currentRating").html = ratingArray
