@@ -137,58 +137,7 @@
                 }
 
 
-//TODO: RATINGS array doesnt take in new ratings
 
-                $(document).on("click", ".editRating", function (e) {
-                    e.preventDefault();
-
-
-
-
-                    let editID = $(this).data("id");
-                    // console.log($(this).parent().select.value);
-                    // console.log($(this).data("id"))
-                    // console.log(document.getElementById($(this).data("id")).value)
-
-
-                    let newRating = document.getElementById($(this).data("id")).value
-
-                    let ratingArray = []
-
-                    console.log(newRating)
-
-
-                    // let addedRating = ratingArray.reduce((a, b) => a + b, 0)
-
-                    // let averageRating = addedRating / ratingArray.length
-
-                    let options = {
-                        method: 'PATCH',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            rating: newRating
-                        }),
-                    };
-
-                    fetch(`${URL}${editID}`, options)
-                        .then(response => response.json())
-                        .catch(error => console.log(error))
-
-
-
-                    console.log($(this).parent().next(".currentRating"))
-
-                    $(this).parent().next(".currentRating").html = newRating
-
-                    // $(this).parent().next(".currentRating").fadeOut()
-
-                    $(this).fadeOut()
-
-
-
-                });
 
 
 
@@ -257,6 +206,59 @@
 
                 getMoviePoster(inputText)
             })
+
+            //TODO: RATINGS array doesnt take in new ratings
+
+            $(document).on("click", ".editRating", function (e) {
+                e.preventDefault();
+
+                let editID = $(this).data("id");
+                // console.log($(this).parent().select.value);
+                // console.log($(this).data("id"))
+                // console.log(document.getElementById($(this).data("id")).value)
+
+
+                let newRating = document.getElementById($(this).data("id")).value
+
+                let ratingArray = []
+
+                ratingArray.push(newRating)
+
+                console.log(ratingArray)
+
+
+                // let addedRating = ratingArray.reduce((a, b) => a + b, 0)
+
+                // let averageRating = addedRating / ratingArray.length
+
+                $(this).parent().next(".currentRating").fadeOut()
+
+                let options = {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        rating: ratingArray
+                    }),
+                };
+
+                fetch(`${URL}${editID}`, options)
+                    .then(response => response.json())
+                    .catch(error => console.log(error))
+
+
+
+
+
+
+                $(this).parent().next(".currentRating").fadeOut()
+
+                $(this).fadeOut()
+
+
+
+            });
 
 
             // let element = document.getElementById("labelID")
