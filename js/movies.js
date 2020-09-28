@@ -13,6 +13,7 @@
                 let id = movie.id;
                 let title = movie.title;
                 let rating = movie.rating;
+
                 html =
                     `<div class="card movieDiv">
                             <div class="card-body">
@@ -37,6 +38,21 @@
                 $('.movies').append(html);
 
 
+
+               fetch(`${URL}${id}`)
+                    .then(response => response.json()
+                    .then(data => console.log(data.rating)))
+
+
+
+
+
+
+
+
+
+
+
                 // function that gets just the image of a movie
 
                 function singleMovie(title) {
@@ -44,6 +60,7 @@
 
                     $.get("http://www.omdbapi.com/?s=" + title + "&apikey=996b9c18", function (rawdata) {
                         let rawString = JSON.stringify(rawdata)
+
 
                         data = JSON.parse(rawString)
                         let title = data.Search[0].Title;
@@ -58,6 +75,8 @@
                             "<p>Year Released:" + year + "</p>" +
                             "<br>")
                         document.getElementById(title).innerHTML = movieLayout;
+
+
 
                     })
                 }
@@ -119,47 +138,59 @@
 
 
 //TODO: RATINGS array doesnt take in new ratings
+
                 $(document).on("click", ".editRating", function (e) {
                     e.preventDefault();
+
+
+
+
                     let editID = $(this).data("id");
                     // console.log($(this).parent().select.value);
-                    console.log($(this).data("id"))
-                    console.log(document.getElementById($(this).data("id")).value)
+                    // console.log($(this).data("id"))
+                    // console.log(document.getElementById($(this).data("id")).value)
 
-                    let ratingArray = []
+
                     let newRating = document.getElementById($(this).data("id")).value
 
-                    console.log(ratingArray)
+                    let ratingArray = []
+
+                    console.log(newRating)
 
 
-                    ratingArray.push(parseInt(newRating))
+                    // let addedRating = ratingArray.reduce((a, b) => a + b, 0)
 
-                    let addedRating = ratingArray.reduce((a, b) => a + b, 0)
+                    // let averageRating = addedRating / ratingArray.length
 
-                    let averageRating = addedRating / ratingArray.length
+                    let options = {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            rating: newRating
+                        }),
+                    };
 
-                    $(this).parent().next(".currentRating").html(averageRating)
+                    fetch(`${URL}${editID}`, options)
+                        .then(response => response.json())
+                        .catch(error => console.log(error))
 
 
-                    $(this).parent().next(".currentRating").fadeOut()
+
+                    console.log($(this).parent().next(".currentRating"))
+
+                    $(this).parent().next(".currentRating").html = newRating
+
+                    // $(this).parent().next(".currentRating").fadeOut()
 
                     $(this).fadeOut()
 
 
-                    fetch(`${URL}${editID}`, {
-                        method: "PATCH",
-                        body: JSON.stringify({
-                            rating: averageRating.toFixed(2),
-                        }),
-                        headers: {
-                            "Content-Type": "application/json"
-                        }
-                    })
-                        .then(response => response.json)
-                        .catch(error => console.log(error))
-
 
                 });
+
+
 
 
 // $(".editRating").click(function test(){
@@ -208,7 +239,7 @@
                             "<div class='card movieDiv'>"+
                             "<div class='card-body'>"+
 
-                            // "<span class='currentRating mt-10' style='font-size: 2em;'> Rating:${rating}</span>" +
+                            "<span class='currentRating mt-10' style='font-size: 2em;'> Rating:${rating}</span>" +
                             "<h1>" + title + "</h1>" +
                             "<br>" +
                             "<a href='" + imdburl + "' target='_blank' rel='noopener noreferrer'><img class='card-img-top'src='" + posterURL + "'></a>" +
