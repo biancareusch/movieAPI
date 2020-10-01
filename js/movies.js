@@ -1,10 +1,13 @@
 (function () {
     const URL = "https://capable-zenith-layer.glitch.me/movies/";
+//Loading Screen
+    $('.everything').hide();
 
-//fetch all movies on server
-    $(window).on("load",function(){
+    $(window).on("load", function () {
         $(".loader-wrapper").fadeOut("slow");
+        $('.everything').fadeIn("slow");
     });
+    //fetch all movies on server
     fetch(URL)
         .then(response => response.json())
         .then(data => {
@@ -20,15 +23,14 @@
                 let startingRate = `${rating}`
                 let lengthRate = `${rating.length}`
 
-                let toNumbers = startingRate.split(",").map(function (item){
+                let toNumbers = startingRate.split(",").map(function (item) {
                     return parseInt(item, 10)
                 })
 
 
-
                 let addedRating = toNumbers.reduce((a, b) => a + b, 0)
 
-                let finalRating = addedRating/toNumbers.length
+                let finalRating = addedRating / toNumbers.length
 
                 html =
                     `<div class="card movieDiv">
@@ -54,20 +56,13 @@
                 $('.movies').append(html);
 
 
-
-
-
-
-
-
                 fetch(`${URL}${id}`)
                     .then(response => response.json())
-                    .then(data => {rateArray.push(data.rating); console.log(rateArray)
+                    .then(data => {
+                        rateArray.push(data.rating);
+                        console.log(rateArray)
 
                     })
-
-
-
 
 
                 // function that gets just the image of a movie
@@ -124,14 +119,6 @@
                         .catch(error => console.log(error))
 
                 }
-
-
-
-
-
-
-
-
             });
 //add movies
             $('.addMovie').click((e) => {
@@ -172,8 +159,8 @@
                         console.log(inputRating)
                         let movieLayout = (
 
-                            "<div class='card movieDiv'>"+
-                            "<div class='card-body'>"+
+                            "<div class='card movieDiv'>" +
+                            "<div class='card-body'>" +
 
                             "<span class='currentRating mt-10' style='font-size: 2em;'> Added!</span>" +
                             "<h1>" + title + "</h1>" +
@@ -182,9 +169,9 @@
                             "<br>" +
                             "<p>Year Released:" + year + "</p>" +
                             "<br>" +
-                            "</div>"+
-                          "</div>"
-                            )
+                            "</div>" +
+                            "</div>"
+                        )
 
                         $(".newMovies").append(movieLayout);
                     })
@@ -197,19 +184,14 @@
             //TODO: RATINGS array doesnt take in new ratings
 
 
-
             $(document).on("click", ".editRating", function (e) {
                 e.preventDefault();
 
                 let editID = $(this).data("id");
 
-                // console.log($(this).parent().select.value);
-                // console.log($(this).data("id"))
-                // console.log(document.getElementById($(this).data("id")).value)
-                setTimeout(function (){
-                    location.reload()
-                },500)
-
+                // setTimeout(function (){
+                //     location.reload()
+                // },500)
 
 
                 let newRating = document.getElementById($(this).data("id")).value
@@ -219,21 +201,20 @@
                 let ratingArray = []
 
 
-
-
                 fetch(`${URL}${editID}`)
                     .then(response => response.json())
-                    .then(data => {rateArray.push(data.rating);
-                    let options = {
-                        method: 'PATCH',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            rating: rateArray
-                        }),
+                    .then(data => {
+                        rateArray.push(data.rating);
+                        let options = {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                rating: rateArray
+                            }),
 
-                    };
+                        };
 
                         fetch(`${URL}${editID}`, options)
                             .then(response => response.json())
@@ -242,34 +223,20 @@
 
                 rateArray.push(newRating)
 
-                console.log(rateArray)
-
+                $(this).parent().next(".currentRating").fadeOut()
                 $(this).parent().next(".currentRating").html = ratingArray
-
                 $(this).parent().next(".currentRating").fadeOut()
-
-
-
-
-
-                $(this).parent().next(".currentRating").fadeOut()
-
                 $(this).fadeOut()
 
-                function pageLoad (){
+                function pageLoad() {
                     location.reload()
                 }
-
-                setTimeout(function (){
-
-
+                setTimeout(function () {
                     location.reload()
+                }, 500)
 
-                },500)
 
             });
-
-
 
 //data fetch
         })
