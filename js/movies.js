@@ -57,7 +57,6 @@
 
 
 
-                // console.log(addedRating);
 
 
 
@@ -100,33 +99,6 @@
 
                 singleMovie(title)
 
-                // let searchMovie = document.querySelector("#search");
-                //
-                // let allMovies = data
-                //
-                // console.log(allMovies)
-
-
-                // function updateMovies(e) {
-                //     e.preventDefault(); // don't submit the form, we just want to update the data
-                //     var searchedName = searchMovie.value.toLowerCase()
-                //     var filteredMovies = [];
-                //     allMovies.forEach(function(movie) {
-                //         if (movie.title.toLowerCase().includes(searchedName)){
-                //             filteredMovies.push(movie);
-                //             console.log(data.id)
-                //         }
-                //     });
-                //     document.getElementsByClassName(movies).innerHTML = updateMovies(filteredMovies);
-                // }
-                //
-                // searchMovie.addEventListener('input', updateMovies);
-                //
-
-
-                // });
-
-
                 $(document).on("click", ".deleteMovie", function (e) {
                     e.preventDefault();
                     console.log(`${URL}` + $(this).data("id"));
@@ -159,10 +131,7 @@
 
 
 
-// $(".editRating").click(function test(){
-//     //this is path to current rating
-//     console.log($(".editOptions :selected").val());
-// })
+
             });
 //add movies
             $('.addMovie').click((e) => {
@@ -233,12 +202,14 @@
                 e.preventDefault();
 
                 let editID = $(this).data("id");
+
                 // console.log($(this).parent().select.value);
                 // console.log($(this).data("id"))
                 // console.log(document.getElementById($(this).data("id")).value)
                 setTimeout(function (){
                     location.reload()
                 },500)
+
 
 
                 let newRating = document.getElementById($(this).data("id")).value
@@ -273,50 +244,33 @@
 
                 console.log(rateArray)
 
-
-
-
-                // let averageRating = addedRating / ratingArray.length
+                $(this).parent().next(".currentRating").html = ratingArray
 
                 $(this).parent().next(".currentRating").fadeOut()
 
 
 
-
-                // let optionPost = {
-                //     method: 'POST',
-                //     headers: {
-                //         'Content-Type': 'application/json',
-                //     },
-                //     body: JSON.stringify({
-                //         rating: rateArray
-                //     }),
-                // };
-                //
-                // fetch(URL, optionPost)
-                //     .then(response => response.json())
-                //     .catch(error => console.log(error))
-
-
-                $(this).parent().next(".currentRating").html = ratingArray
 
 
                 $(this).parent().next(".currentRating").fadeOut()
 
                 $(this).fadeOut()
 
+                function pageLoad (){
+                    location.reload()
+                }
 
+                setTimeout(function (){
+
+
+                    location.reload()
+
+                },500)
 
             });
 
 
-            // let element = document.getElementById("labelID")
-            // function hasDisplayNone(element) {
-            //     return (element.classList.value.indexOf("d-none") !== -1);
-            // }
-            // if (hasDisplayNone(element)) {
-            //     element.classList.remove("d-none");
-            // }
+
 //data fetch
         })
 // IIFE don't touch
