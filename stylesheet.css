@@ -8,14 +8,77 @@ body {
     background-image: url("aED1AMU-theater-backgrounds.jpg");
     text-align: center;
     flex-flow: row wrap;
-    color:white;
+    color: white;
+}
+.loader-wrapper {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #242f3f;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.loader {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    position: relative;
+    top: 20%;                       /******** <- Remove this line *********/
+    border: 4px solid #Fff;
+    animation: loader 2s infinite ease;
+}
+@keyframes loader {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(180deg);
+    }
+
+    50% {
+        transform: rotate(180deg);
+    }
+
+    75% {
+        transform: rotate(360deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
+@keyframes loader-inner {
+    0% {
+        height: 0%;
+    }
+
+    25% {
+        height: 0%;
+    }
+
+    50% {
+        height: 100%;
+    }
+
+    75% {
+        height: 100%;
+    }
+
+    100% {
+        height: 0%;
+    }
+}
 .card {
     padding: 3vw;
     background: rgba(222, 222, 222, 0.30);
     border-radius: 5px;
     margin: 1vw;
+    object-fit: contain;
 }
 
 .labelID {
@@ -24,20 +87,22 @@ body {
 }
 
 img {
-    box-shadow: 2vw 2vw 1vw black;
+    box-shadow: 0.5vw 0.5vw 0.5vw;
 }
 
 input {
     text-align: center;
 }
-
+.toTop{
+    margin:1em;
+}
 .addRatingLabel {
     font-size: 3vh;
 }
 
 .addRating {
     width: 30vw;
-   height:2em;
+    height: 2em;
     border-radius: 4px;
 }
 
@@ -55,9 +120,11 @@ input {
 .navbar-form {
     margin-top: 1.5rem;
 }
-a{
+
+a {
     color: #bd2130;
 }
+
 .navbar-brand img {
     width: 40vw;
     max-width: 300px;
@@ -65,7 +132,6 @@ a{
     background: #ffffffe3;
     border-radius: 4px;
 }
-
 
 
 .movies, .newMovies {
@@ -76,8 +142,8 @@ a{
     justify-content: center;
 }
 
-.addMovie{
-    height:2em;
+.addMovie {
+    height: 2em;
     border-radius: 4px;
     background-color: gray;
     line-height: 0.5;
@@ -104,12 +170,5 @@ a{
         padding: 0.5vw;
     }
 
-    img {
-        box-shadow: .25vw .25vw .25vw black;
-    }
 
-    img {
-        width: 14vw;
-        box-shadow: 0.5vw 0.5vw 0.5vw black;
-    }
 }

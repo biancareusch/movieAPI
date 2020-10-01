@@ -2,8 +2,9 @@
     const URL = "https://capable-zenith-layer.glitch.me/movies/";
 
 //fetch all movies on server
-
-
+    $(window).on("load",function(){
+        $(".loader-wrapper").fadeOut("slow");
+    });
     fetch(URL)
         .then(response => response.json())
         .then(data => {
@@ -201,6 +202,15 @@
                 e.preventDefault();
 
                 let editID = $(this).data("id");
+
+                // console.log($(this).parent().select.value);
+                // console.log($(this).data("id"))
+                // console.log(document.getElementById($(this).data("id")).value)
+                setTimeout(function (){
+                    location.reload()
+                },500)
+
+
 
                 let newRating = document.getElementById($(this).data("id")).value
 
