@@ -9,6 +9,10 @@
     <script src="https://kit.fontawesome.com/a08077b390.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<a name="top"></a>
+<div class="loader-wrapper">
+    <span class="loader"><span class="loader-inner"></span></span>
+</div>
 <!--NAVBAR-->
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid navContainer">
@@ -32,6 +36,7 @@
                     <button class="addMovie btn" data-toggle="button" type="submit">Add
                         Movie
                     </button>
+
                 </div>
             </form>
 
@@ -46,7 +51,6 @@
 
     <div class="row">
         <div class="col-12">
-            <label class="d-none labelID" id="newMovieLabel" for="newMovies">Just added</label>
             <section id=newMovies class="newMovies">
 
                 <div id="newPosterImage"></div>
@@ -59,8 +63,8 @@
     </div>
 
 </div>
-
-
+<a href="#top" class="toTop">To the Top</a>
+<button id="refreshBtn btn ">Refresh</button>
 <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
